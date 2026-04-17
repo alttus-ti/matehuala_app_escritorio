@@ -6,30 +6,185 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>360</height>
+    <width>560</width>
+    <height>430</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Login</string>
+   <string>RUMSA | Iniciar sesión</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">QWidget#centralwidget {
+    background-color: #EEF3F7;
+}
+
+QFrame#frameHeader {
+    background-color: #D9ECFA;
+    border: 2px solid #7FB6E6;
+    border-radius: 18px;
+}
+
+QLabel#labelBrand {
+    color: #F3B21A;
+    font: 700 28pt &quot;Arial&quot;;
+    letter-spacing: 2px;
+}
+
+QLabel#labelCompany {
+    color: #5E98CC;
+    font: 700 11pt &quot;Arial&quot;;
+}
+
+QLabel#labelWelcome {
+    color: #6F7E8B;
+    font: 10pt &quot;Arial&quot;;
+}
+
+QLabel#labelTitle {
+    color: #4979A9;
+    font: 700 18pt &quot;Arial&quot;;
+}
+
+QLabel#labelSubtitle {
+    color: #6B7B8C;
+    font: 10pt &quot;Arial&quot;;
+}
+
+QLabel#labelUser, QLabel#labelPassword {
+    color: #4979A9;
+    font: 700 10pt &quot;Arial&quot;;
+}
+
+QLineEdit {
+    background-color: #FFFFFF;
+    border: 2px solid #B8D8F3;
+    border-radius: 12px;
+    padding: 8px 10px;
+    color: #2E3A46;
+}
+
+QLineEdit:focus {
+    border: 2px solid #F3C623;
+}
+
+QCheckBox {
+    color: #5E6A77;
+    font: 9pt &quot;Arial&quot;;
+}
+
+QPushButton#pushButtonForgot {
+    color: #E2A61C;
+    font: 700 9pt &quot;Arial&quot;;
+    border: none;
+}
+
+QPushButton#pushButtonForgot:hover {
+    color: #C98900;
+}
+
+QPushButton#pushButtonLogin {
+    background-color: #F3C623;
+    color: #3D3D3D;
+    border: none;
+    border-radius: 12px;
+    font: 700 10pt &quot;Arial&quot;;
+    padding: 8px 16px;
+}
+
+QPushButton#pushButtonLogin:hover {
+    background-color: #E4B61A;
+}
+
+QPushButton#pushButtonCancel {
+    background-color: #7FB6E6;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    font: 700 10pt &quot;Arial&quot;;
+    padding: 8px 16px;
+}
+
+QPushButton#pushButtonCancel:hover {
+    background-color: #6AA6DA;
+}</string>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout_main">
     <property name="spacing">
-     <number>12</number>
+     <number>14</number>
     </property>
     <property name="leftMargin">
-     <number>30</number>
+     <number>34</number>
     </property>
     <property name="topMargin">
-     <number>25</number>
+     <number>24</number>
     </property>
     <property name="rightMargin">
-     <number>30</number>
+     <number>34</number>
     </property>
     <property name="bottomMargin">
-     <number>25</number>
+     <number>24</number>
     </property>
+    <item>
+     <widget class="QFrame" name="frameHeader">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_header">
+       <property name="spacing">
+        <number>4</number>
+       </property>
+       <property name="leftMargin">
+        <number>18</number>
+       </property>
+       <property name="topMargin">
+        <number>18</number>
+       </property>
+       <property name="rightMargin">
+        <number>18</number>
+       </property>
+       <property name="bottomMargin">
+        <number>18</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="labelBrand">
+         <property name="text">
+          <string>RUMSA</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labelCompany">
+         <property name="text">
+          <string>Rutas Urbanas de Matehuala, S.A. de C.V.</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labelWelcome">
+         <property name="text">
+          <string>Acceso al sistema</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
     <item>
      <spacer name="verticalSpacerTop">
       <property name="orientation">
@@ -38,21 +193,13 @@
       <property name="sizeHint" stdset="0">
        <size>
         <width>20</width>
-        <height>10</height>
+        <height>6</height>
        </size>
       </property>
      </spacer>
     </item>
     <item>
      <widget class="QLabel" name="labelTitle">
-      <property name="font">
-       <font>
-        <family>Arial</family>
-        <pointsize>18</pointsize>
-        <bold>true</bold>
-        <weight>75</weight>
-       </font>
-      </property>
       <property name="text">
        <string>Iniciar sesión</string>
       </property>
@@ -79,7 +226,7 @@
       <property name="sizeHint" stdset="0">
        <size>
         <width>20</width>
-        <height>10</height>
+        <height>6</height>
        </size>
       </property>
      </spacer>
@@ -93,10 +240,10 @@
        <set>Qt::AlignHCenter|Qt::AlignTop</set>
       </property>
       <property name="horizontalSpacing">
-       <number>12</number>
+       <number>14</number>
       </property>
       <property name="verticalSpacing">
-       <number>14</number>
+       <number>16</number>
       </property>
       <item row="0" column="0">
        <widget class="QLabel" name="labelUser">
@@ -109,8 +256,8 @@
        <widget class="QLineEdit" name="lineEditUser">
         <property name="minimumSize">
          <size>
-          <width>220</width>
-          <height>30</height>
+          <width>260</width>
+          <height>38</height>
          </size>
         </property>
         <property name="placeholderText">
@@ -129,8 +276,8 @@
        <widget class="QLineEdit" name="lineEditPassword">
         <property name="minimumSize">
          <size>
-          <width>220</width>
-          <height>30</height>
+          <width>260</width>
+          <height>38</height>
          </size>
         </property>
         <property name="echoMode">
@@ -222,8 +369,8 @@
        <widget class="QPushButton" name="pushButtonLogin">
         <property name="minimumSize">
          <size>
-          <width>120</width>
-          <height>34</height>
+          <width>135</width>
+          <height>38</height>
          </size>
         </property>
         <property name="text">
@@ -235,8 +382,8 @@
        <widget class="QPushButton" name="pushButtonCancel">
         <property name="minimumSize">
          <size>
-          <width>90</width>
-          <height>34</height>
+          <width>100</width>
+          <height>38</height>
          </size>
         </property>
         <property name="text">
@@ -267,7 +414,7 @@
       <property name="sizeHint" stdset="0">
        <size>
         <width>20</width>
-        <height>20</height>
+        <height>10</height>
        </size>
       </property>
      </spacer>
@@ -279,8 +426,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>480</width>
-     <height>21</height>
+     <width>560</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>

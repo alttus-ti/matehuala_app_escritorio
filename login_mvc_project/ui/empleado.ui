@@ -1,0 +1,285 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>580</width>
+    <height>470</height>
+   </rect>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">QWidget#centralwidget {
+    background-color: #EAF4FF;
+}
+QFrame#frameHeader {
+    background-color: #D7ECFF;
+    border: 2px solid #92BEE5;
+    border-radius: 18px;
+}
+QLabel#labelBrand {
+    color: #F0B51D;
+    font: 700 24pt "Arial";
+    letter-spacing: 2px;
+}
+QLabel#labelCompany {
+    color: #2E79BD;
+    font: 700 10pt "Arial";
+}
+QLabel#labelHeaderInfo {
+    color: #6C7B88;
+    font: 9pt "Arial";
+}
+QLabel#menu, QLabel#label, QLabel#Recargar, QLabel#alta {
+    color: #245E91;
+    font: 700 18pt "Arial";
+}
+QLabel#otrosdatos, QLabel#nombre, QLabel#uid, QLabel#tarjeta, QLabel#saldo, QLabel#saldonuevo, QLabel#vigencia {
+    color: #245E91;
+    font: 700 10pt "Arial";
+}
+QLabel#texto1, QLabel#texto2, QLabel#texto4, QLabel#texto5, QLabel#texto6, QLabel#texto7 {
+    color: #4B5560;
+    font: 10pt "Arial";
+}
+QLabel#signopeso, QLabel#signopeso2, QLabel#signopeso3 {
+    color: #F0B51D;
+    font: 700 16pt "Arial";
+}
+QPushButton {
+    background-color: #F4C430;
+    color: #3E3A32;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 16px;
+    font: 700 10pt "Arial";
+}
+QPushButton:hover {
+    background-color: #E7B91C;
+}
+QPushButton#botonregresar {
+    background-color: #5FA8E8;
+    color: white;
+    border-radius: 12px;
+    padding: 0px;
+}
+QPushButton#botonregresar:hover {
+    background-color: #6CA8DB;
+}
+QLineEdit, QTextEdit, QTextBrowser, QComboBox, QCalendarWidget QAbstractItemView {
+    background-color: white;
+    color: #2E3A46;
+}
+QTextEdit, QTextBrowser, QComboBox, QCalendarWidget, QLineEdit {
+    border: 2px solid #B8D8F3;
+    border-radius: 12px;
+    padding: 6px 8px;
+}
+QTextEdit:focus, QComboBox:focus, QLineEdit:focus {
+    border: 2px solid #F3C623;
+}
+QRadioButton {
+    color: #4B5560;
+    font: 10pt "Arial";
+}
+QRadioButton::indicator:checked {
+    background-color: #F4C430;
+    border: 2px solid #E0AE12;
+    width: 12px;
+    height: 12px;
+    border-radius: 7px;
+}
+QCalendarWidget QWidget {
+    alternate-background-color: #EAF4FF;
+}
+QCalendarWidget QToolButton {
+    color: #245E91;
+    font: 700 10pt "Arial";
+}
+QCalendarWidget QMenu {
+    background-color: white;
+}
+QCalendarWidget QSpinBox {
+    background-color: white;
+    color: #2E3A46;
+}
+QHeaderView::section {
+    background-color: #D7ECFF;
+    color: #245E91;
+    font: 700 9pt "Arial";
+    border: 1px solid #B8D8F3;
+}
+QPushButton#botonrecarga {
+    min-width: 220px;
+    min-height: 54px;
+    font: 700 12pt "Arial";
+}
+QLabel#labelEstadoConexion {
+    background-color: #FFF7D6;
+    color: #245E91;
+    border: 1px solid #F0C247;
+    border-radius: 10px;
+    padding: 4px 10px;
+    font: 700 8pt "Arial";
+}
+</string>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QFrame" name="frameHeader">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_header">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>16</number>
+         </property>
+         <property name="topMargin">
+          <number>14</number>
+         </property>
+         <property name="rightMargin">
+          <number>16</number>
+         </property>
+         <property name="bottomMargin">
+          <number>14</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="labelBrand">
+           <property name="text">
+            <string>RUMSA</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelCompany">
+           <property name="text">
+            <string>Rutas Urbanas de Matehuala, S.A. de C.V.</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelHeaderInfo">
+           <property name="text">
+            <string>Rutas Urbanas de Matehuala</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        <item><widget class="QLabel" name="labelEstadoConexion"><property name="text"><string>● Conectando</string></property><property name="alignment"><set>Qt::AlignCenter</set></property><property name="toolTip"><string>Este texto puede cambiar a: Conectando, Sin conexión, Sincronizando o Conectado.</string></property></widget></item></layout>
+       </widget>
+      </item>
+      <item>
+       <spacer name="rumsaSpacer_empleado">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>10</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>18</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Menú principal</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <spacer name="espacio1">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="botonrecarga">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Recargar</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="espacio2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <property name="windowTitle">
+   <string>RUMSA | Empleado</string>
+  </property>
+ </widget>
+ <resources />
+ <connections />
+</ui>
