@@ -13,6 +13,7 @@ class RecargaModel:
                     t.id,
                     t.uid,
                     t.saldo,
+                    t.vigencia,
                     t.tipo_tarjeta_id,
                     tt.descripcion AS tipo_tarjeta,
                     p.nombre AS nombre_pasajero

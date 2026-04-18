@@ -1,5 +1,6 @@
 from PySide6.QtCore import QCoreApplication, QDateTime, QTimer
 from PySide6.QtWidgets import QMainWindow, QMessageBox
+from datetime import datetime
 from typing import Optional
 import re
 import time
@@ -41,6 +42,7 @@ class AppController:
         self.tipo_actual = ""
         self.saldo_actual_centavos = 0
         self.monto_pendiente_centavos = 0
+        self.tarjeta_vencida = False
 
         # alta
         self.alta_model = AltaModel()
@@ -259,6 +261,7 @@ class AppController:
         self.tipo_actual = ""
         self.saldo_actual_centavos = 0
         self.monto_pendiente_centavos = 0
+        self.tarjeta_vencida = False
 
         ui.texto4.setText("-")
         ui.texto5.setText("-")
@@ -266,6 +269,7 @@ class AppController:
         ui.texto1.setText("0.00")
         ui.texto2.setText("0.00")
         ui.texto7.setText("")
+        ui.botonrecargar.setEnabled(True)
 
         monto = self._campo_monto_recarga()
         if monto is not None:
@@ -285,6 +289,52 @@ class AppController:
 
         self._conectar_puerto_recarga()
         self.recarga_timer.start(300)
+
+    def _parsear_vigencia_tarjeta(self, vigencia_raw) -> Optional[datetime]:
+        if vigencia_raw is None:
+            return None
+
+        texto_vigencia = str(vigencia_raw).strip()
+        if not texto_vigencia:
+            return None
+
+        formatos = (
+            "%d%m%y%H%M%S",
+            "%d-%m-%Y %H:%M:%S",
+            "%Y-%m-%d %H:%M:%S",
+        )
+
+        for formato in formatos:
+            try:
+                return datetime.strptime(texto_vigencia, formato)
+            except ValueError:
+                continue
+
+        return None
+
+    def _actualizar_estado_vencimiento_tarjeta(self, tarjeta_db) -> None:
+        if not isinstance(self.current_ui, RecargaWindow):
+            return
+
+        ui = self.current_ui
+        vigencia_raw = tarjeta_db["vigencia"] if tarjeta_db else None
+        fecha_vigencia = self._parsear_vigencia_tarjeta(vigencia_raw)
+
+        self.tarjeta_vencida = bool(
+            fecha_vigencia and fecha_vigencia <= datetime.now()
+        )
+
+        if self.tarjeta_vencida:
+            ui.botonrecargar.setEnabled(False)
+            ui.texto7.setText(
+                "Tarjeta vencida "
+                f"({fecha_vigencia.strftime('%d-%m-%Y %H:%M:%S')})."
+            )
+            return
+
+        ui.botonrecargar.setEnabled(True)
+        if "Tarjeta vencida" in ui.texto7.text():
+            ui.texto7.setText("")
 
     def _fallo_recarga(self, motivo: str, error: Optional[Exception] = None) -> None:
         if isinstance(self.current_ui, RecargaWindow):
@@ -343,6 +393,7 @@ class AppController:
                 ui.texto6.setText(tarjeta_db["tipo_tarjeta"])
             else:
                 ui.texto6.setText("No registrada")
+            self._actualizar_estado_vencimiento_tarjeta(tarjeta_db)
 
             self._preview_saldo_nuevo()
         except Exception as e:
@@ -385,6 +436,7 @@ class AppController:
             tarjeta_db = self.recarga_model.obtener_tarjeta_por_uid(self.uid_actual)
             if tarjeta_db:
                 ui.texto6.setText(tarjeta_db["tipo_tarjeta"])
+            self._actualizar_estado_vencimiento_tarjeta(tarjeta_db)
 
         except Exception as e:
             self._fallo_recarga(f"No se pudo procesar la respuesta de recarga: {linea}", e)
@@ -431,6 +483,16 @@ class AppController:
 
         if not self.uid_actual:
             QMessageBox.warning(self.current_window, "Error", "Primero acerca una tarjeta.")
+            return
+
+        tarjeta_db = self.recarga_model.obtener_tarjeta_por_uid(self.uid_actual)
+        self._actualizar_estado_vencimiento_tarjeta(tarjeta_db)
+        if self.tarjeta_vencida:
+            QMessageBox.warning(
+                self.current_window,
+                "Tarjeta vencida",
+                "La tarjeta esta vencida y no se puede recargar."
+            )
             return
 
         texto_monto = self._texto_monto_recarga()
