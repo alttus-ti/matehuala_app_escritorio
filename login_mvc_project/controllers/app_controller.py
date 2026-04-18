@@ -1,8 +1,12 @@
 from PySide6.QtCore import QCoreApplication, QDateTime, QTimer
 from PySide6.QtWidgets import QMainWindow, QMessageBox
+from typing import Optional
 import re
 import time
 import traceback
+
+from core.sync_config import SYNC_INTERVAL_MS
+from services.sync_service import SyncService
 
 from controllers.alta_controller import AltaController
 from controllers.arduino_controller import ArduinoController
@@ -13,10 +17,9 @@ from views.dar_de_alta_view import AltaWindow
 from views.login_view import LoginWindow
 from views.recarga_view import RecargaWindow
 from views.empleado_view import EmpleadoWindow
-
-
 from views.cancelar_view import CancelarWindow
 from views.sustituir_view import SustituirWindow
+
 
 class AppController:
     """Controlador principal de ventanas."""
@@ -28,8 +31,8 @@ class AppController:
         self.current_ui = None
         self.current_username = ""
         self.current_role = ""
-        
-        #recarga
+
+        # recarga
         self.arduino = ArduinoController()
         self.recarga_model = RecargaModel()
         self.recarga_timer = None
@@ -37,13 +40,19 @@ class AppController:
         self.nombre_actual = ""
         self.tipo_actual = ""
         self.saldo_actual_centavos = 0
-        self.monto_pendiente_centavos = 0 
-        
-        #dar de alta
+        self.monto_pendiente_centavos = 0
+
+        # alta
         self.alta_model = AltaModel()
         self.alta_timer = None
         self.uid_alta_actual = ""
         self.alta_pendiente = None
+
+        # sincronizacion
+        self.sync_service = SyncService()
+        self.sync_timer = QTimer()
+        self.sync_timer.timeout.connect(self._sincronizar_pendientes)
+        self.sync_timer.start(SYNC_INTERVAL_MS)
 
     def _normalizar_uid(self, uid: str) -> str:
         uid_limpia = uid.strip().upper()
@@ -53,10 +62,23 @@ class AppController:
             return ""
         return uid_limpia
 
+    def _limpiar_alias_para_arduino(self, nombre: str, max_len: int = 24) -> str:
+        import unicodedata
+        import re as _re
+
+        s = unicodedata.normalize("NFKD", nombre)
+        s = s.encode("ascii", "ignore").decode("ascii")
+        s = s.replace(",", " ")
+        s = s.replace("\r", " ").replace("\n", " ")
+        s = _re.sub(r"\s+", " ", s).strip()
+        return s[:max_len]
+
     def show_login_window(self) -> None:
         self._close_current_window()
         self.current_window = LoginWindow(controller=self)
+        self.current_ui = None
         self.current_window.show()
+        QTimer.singleShot(500, self._sincronizar_pendientes)
 
     def showLoginWindow(self) -> None:
         self.show_login_window()
@@ -87,6 +109,8 @@ class AppController:
         self.current_ui.botonsustituir.clicked.connect(self.show_sustituir_window)
 
         self.current_window.show()
+        self._actualizar_estado_sync_ui("connecting")
+        QTimer.singleShot(300, self._sincronizar_pendientes)
 
     def show_empleado_window(self, username: str) -> None:
         self._close_current_window()
@@ -97,6 +121,8 @@ class AppController:
         self.current_ui.botonrecarga.clicked.connect(self.show_recarga_window)
 
         self.current_window.show()
+        self._actualizar_estado_sync_ui("connecting")
+        QTimer.singleShot(300, self._sincronizar_pendientes)
 
     def show_contador_window(self, username: str) -> None:
         self.show_admin_window(username)
@@ -111,10 +137,10 @@ class AppController:
     def show_recarga_window(self) -> None:
         self._show_port_window(RecargaWindow())
         self._configurar_recarga_window()
-        
+
     def show_cancelar_window(self) -> None:
         self._show_port_window(CancelarWindow())
-    
+
     def show_sustituir_window(self) -> None:
         self._show_port_window(SustituirWindow())
 
@@ -132,6 +158,44 @@ class AppController:
             )
 
         self.current_window.show()
+        self._actualizar_estado_sync_ui("connecting")
+        QTimer.singleShot(300, self._sincronizar_pendientes)
+
+    def _sincronizar_pendientes(self) -> None:
+        pendientes = self.sync_service.count_pending()
+        if pendientes > 0:
+            self._actualizar_estado_sync_ui("syncing", pendientes)
+
+        resultado = self.sync_service.sync_pending_once()
+        estado = resultado.get("state", "offline")
+        pendientes_restantes = int(resultado.get("pending_after", 0) or 0)
+
+        if estado == "connected":
+            self._actualizar_estado_sync_ui("connected", pendientes_restantes)
+            return
+
+        if estado == "connected_with_errors":
+            self._actualizar_estado_sync_ui("connected_with_errors", pendientes_restantes)
+            return
+
+        self._actualizar_estado_sync_ui("offline", pendientes_restantes)
+
+    def _actualizar_estado_sync_ui(self, estado: str, pendientes: int = 0) -> None:
+        if self.current_ui is None or not hasattr(self.current_ui, "labelEstadoConexion"):
+            return
+
+        if estado == "syncing":
+            texto = f"● Sincronizando ({pendientes})" if pendientes else "● Sincronizando"
+        elif estado == "connected":
+            texto = f"● Conectado · Pendientes: {pendientes}" if pendientes else "● Conectado"
+        elif estado == "connected_with_errors":
+            texto = f"● Conectado · Pendientes: {pendientes}" if pendientes else "● Conectado"
+        elif estado == "connecting":
+            texto = "● Conectando"
+        else:
+            texto = f"● Sin conexión · Pendientes: {pendientes}" if pendientes else "● Sin conexión"
+
+        self.current_ui.labelEstadoConexion.setText(texto)
 
     def _llenar_lista_puertos(self) -> None:
         alta_controller = AltaController()
@@ -168,8 +232,8 @@ class AppController:
             "lista",
             getattr(self.current_ui, "comboBox", None)
         )
-    
-    def _close_current_window(self) -> None: 
+
+    def _close_current_window(self) -> None:
         if isinstance(self.current_ui, RecargaWindow):
             if self.recarga_timer is not None:
                 self.recarga_timer.stop()
@@ -182,42 +246,47 @@ class AppController:
 
         if self.current_window is not None:
             self.current_window.close()
-        
+
+    # =========================
+    # RECARGA
+    # =========================
+
     def _configurar_recarga_window(self) -> None:
         ui = self.current_ui
-        
+
         self.uid_actual = ""
         self.nombre_actual = ""
         self.tipo_actual = ""
         self.saldo_actual_centavos = 0
         self.monto_pendiente_centavos = 0
-        
+
         ui.texto4.setText("-")
         ui.texto5.setText("-")
         ui.texto6.setText("-")
         ui.texto1.setText("0.00")
         ui.texto2.setText("0.00")
         ui.texto7.setText("")
-        
+
         monto = self._campo_monto_recarga()
         if monto is not None:
             monto.setReadOnly(False)
             monto.clear()
             monto.textChanged.connect(self._preview_saldo_nuevo)
+
         ui.botonrecargar.clicked.connect(self._ejecutar_recarga)
 
         lista_puertos = self._combo_puertos_actual()
         if lista_puertos is not None:
             lista_puertos.currentIndexChanged.connect(self._conectar_puerto_recarga)
-        
+
         if self.recarga_timer is None:
             self.recarga_timer = QTimer()
             self.recarga_timer.timeout.connect(self._leer_serial_recarga)
-            
+
         self._conectar_puerto_recarga()
         self.recarga_timer.start(300)
 
-    def _fallo_recarga(self, motivo: str, error: Exception | None = None) -> None:
+    def _fallo_recarga(self, motivo: str, error: Optional[Exception] = None) -> None:
         if isinstance(self.current_ui, RecargaWindow):
             self.current_ui.texto7.setText("Fallo recarga")
 
@@ -227,26 +296,23 @@ class AppController:
 
         print(f"[RECARGA] Fallo recarga: {motivo}. Error: {error}")
         traceback.print_exception(type(error), error, error.__traceback__)
-        
+
     def _conectar_puerto_recarga(self, *args) -> None:
-        ui = self.current_ui
         lista_puertos = self._combo_puertos_actual()
         puerto = lista_puertos.currentData() if lista_puertos is not None else None
         if not puerto:
             self._fallo_recarga("No hay puerto seleccionado")
             return
-        
+
         try:
             self.arduino.conectar(puerto, 115200)
         except Exception as e:
             self._fallo_recarga(f"No se pudo conectar al puerto {puerto}", e)
-            
+
     def _leer_serial_recarga(self) -> None:
         if not isinstance(self.current_ui, RecargaWindow):
             return
-        
-        ui = self.current_ui
-        
+
         while True:
             linea = self.arduino.leer_linea()
             if not linea:
@@ -303,19 +369,23 @@ class AppController:
                 nombre_pasajero=self.nombre_actual,
                 referencia=f"Folio: {folio}"
             )
+            self._sincronizar_pendientes()
 
             self.saldo_actual_centavos = int(nuevo_saldo_centavos)
             ui.texto1.setText(f"{nuevo_saldo:.2f}")
             ui.texto2.setText(f"{nuevo_saldo:.2f}")
             ui.texto7.setText("Recarga exitosa")
+
             monto = self._campo_monto_recarga()
             if monto is not None:
                 monto.clear()
+
             self.monto_pendiente_centavos = 0
-            
+
             tarjeta_db = self.recarga_model.obtener_tarjeta_por_uid(self.uid_actual)
             if tarjeta_db:
                 ui.texto6.setText(tarjeta_db["tipo_tarjeta"])
+
         except Exception as e:
             self._fallo_recarga(f"No se pudo procesar la respuesta de recarga: {linea}", e)
 
@@ -355,7 +425,7 @@ class AppController:
 
         nuevo = (self.saldo_actual_centavos / 100) + monto
         ui.texto2.setText(f"{nuevo:.2f}")
-            
+
     def _ejecutar_recarga(self) -> None:
         ui = self.current_ui
 
@@ -387,7 +457,11 @@ class AppController:
         except Exception as e:
             self._fallo_recarga("No se pudo enviar la recarga al Arduino", e)
             QMessageBox.critical(self.current_window, "Error", f"No se pudo enviar la recarga: {e}")
-            
+
+    # =========================
+    # ALTA
+    # =========================
+
     def _configurar_alta_window(self) -> None:
         ui = self.current_ui
 
@@ -414,18 +488,17 @@ class AppController:
 
         self._conectar_puerto_alta()
         self.alta_timer.start(300)
-        
+
     def _actualizar_vigencia_desde_calendario(self) -> None:
         if not isinstance(self.current_ui, AltaWindow):
             return
 
         ui = self.current_ui
         fecha = ui.calendario.selectedDate()
+        hora_actual = QDateTime.currentDateTime().toString("HH:mm:ss")
+        ui.textovigencia.setPlainText(f"{fecha.toString('dd-MM-yyyy')} {hora_actual}")
 
-        ui.textovigencia.setPlainText(fecha.toString("dd-MM-yyyy"))
-           
     def _conectar_puerto_alta(self, *args) -> None:
-        ui = self.current_ui
         lista_puertos = self._combo_puertos_actual()
         puerto = lista_puertos.currentData() if lista_puertos is not None else None
 
@@ -442,7 +515,7 @@ class AppController:
                 "Error",
                 f"No se pudo conectar al puerto {puerto}: {e}"
             )
-            
+
     def _leer_serial_alta(self, mostrar_errores: bool = True) -> None:
         if not isinstance(self.current_ui, AltaWindow):
             return
@@ -455,7 +528,6 @@ class AppController:
                 break
 
             print("[ALTA]", linea)
-
             linea_minusculas = linea.lower()
 
             if linea_minusculas.startswith("sldo,"):
@@ -476,6 +548,7 @@ class AppController:
 
                     if not ui.textonombre.toPlainText().strip() and nombre.strip():
                         ui.textonombre.setPlainText(nombre.strip())
+
                 except Exception as e:
                     print(f"[ALTA] Error completo al procesar linea: {linea}")
                     traceback.print_exception(type(e), e, e.__traceback__)
@@ -490,11 +563,55 @@ class AppController:
 
                     self.uid_alta_actual = uid_detectada
                     print(f"[ALTA] Tarjeta detectada UID={self.uid_alta_actual}")
+
                 except Exception as e:
                     print(f"[ALTA] Error completo al procesar UID: {linea}")
                     traceback.print_exception(type(e), e, e.__traceback__)
 
+            elif linea_minusculas == "ok,alta":
+                if not self.alta_pendiente:
+                    print("[ALTA] Llego ok,alta pero no hay alta pendiente.")
+                    continue
+
+                try:
+                    uid = self.alta_pendiente["uid"]
+                    nombre = self.alta_pendiente["nombre_pasajero"]
+
+                    comando_nombre = f"nm,{uid},{nombre}"
+                    print("[ALTA] Enviando nombre:", comando_nombre)
+                    self.arduino.enviar_linea(comando_nombre)
+
+                    self.alta_pendiente["fase"] = "esperando_nombre"
+
+                except Exception as e:
+                    print(f"[ALTA] Error al enviar nombre: {e}")
+                    traceback.print_exception(type(e), e, e.__traceback__)
+                    self.alta_pendiente = None
+
+                    if mostrar_errores:
+                        QMessageBox.critical(
+                            self.current_window,
+                            "Error",
+                            f"La tarjeta se dio de alta, pero no se pudo enviar el nombre: {e}"
+                        )
+
+            elif linea_minusculas == "ok,nombre":
+                if not self.alta_pendiente:
+                    print("[ALTA] Llego ok,nombre pero no hay alta pendiente.")
+                    continue
+
+                if not self._guardar_alta_local_confirmada():
+                    return
+
+                QMessageBox.information(
+                    self.current_window,
+                    "Alta",
+                    "Tarjeta dada de alta correctamente."
+                )
+
             elif linea_minusculas.startswith("ok,"):
+                # compatibilidad para lecturas tipo:
+                # ok,300426235959,0413243AC75A80,juan
                 try:
                     partes = linea.split(",")
                     if len(partes) >= 3:
@@ -505,6 +622,7 @@ class AppController:
 
                         self.uid_alta_actual = uid_detectada
                         nombre = partes[3].strip() if len(partes) >= 4 else ""
+
                         print(
                             "[ALTA] Tarjeta detectada "
                             f"UID={self.uid_alta_actual} "
@@ -515,6 +633,7 @@ class AppController:
                             ui.textonombre.setPlainText(nombre)
                     else:
                         print(f"[ALTA] Trama ok incompleta: {linea}")
+
                 except Exception as e:
                     print(f"[ALTA] Error completo al procesar ok: {linea}")
                     traceback.print_exception(type(e), e, e.__traceback__)
@@ -523,6 +642,10 @@ class AppController:
                 continue
 
             elif linea == "ok":
+                # compatibilidad con firmware viejo
+                if not self.alta_pendiente:
+                    continue
+
                 if not self._guardar_alta_local_confirmada():
                     return
 
@@ -533,20 +656,22 @@ class AppController:
                 )
 
             elif linea.lower().startswith("error"):
-                # Error de lectura normal antes de enviar el alta
                 if not self.alta_pendiente:
                     print(f"[ALTA] Error de lectura ignorado sin alta pendiente: {linea}")
                     continue
 
+                fase = self.alta_pendiente.get("fase", "desconocida")
                 self.alta_pendiente = None
-                QMessageBox.warning(
-                    self.current_window,
-                    "Error",
-                    f"El Arduino rechazo el alta: {linea}\n\n"
-                    "No se guardo la tarjeta en la base local porque el alta "
-                    "solo se persiste cuando Arduino confirma con 'ok'."
-                )
-                
+
+                if mostrar_errores:
+                    QMessageBox.warning(
+                        self.current_window,
+                        "Error",
+                        f"El Arduino rechazo la alta en fase '{fase}': {linea}\n\n"
+                        "No se guardo la tarjeta en la base local porque el alta "
+                        "solo se persiste cuando Arduino confirma completamente."
+                    )
+
     def _esperar_uid_alta_disponible(self) -> bool:
         print("[ALTA] No hay UID guardado. Solicitando UID real al Arduino con: uid")
         try:
@@ -564,7 +689,7 @@ class AppController:
             QCoreApplication.processEvents()
             time.sleep(0.05)
 
-        print("[ALTA] No se recibió UID real desde serial.")
+        print("[ALTA] No se recibio UID real desde serial.")
         return False
 
     def _guardar_alta_local_confirmada(self) -> bool:
@@ -572,13 +697,24 @@ class AppController:
             return True
 
         try:
-            self.alta_model.guardar_alta_local(**self.alta_pendiente)
+            payload = {
+                "uid": self.alta_pendiente["uid"],
+                "nombre_pasajero": self.alta_pendiente["nombre_pasajero"],
+                "tipo": self.alta_pendiente["tipo"],
+                "vigencia": self.alta_pendiente["vigencia"],
+            }
+
+            self.alta_model.guardar_alta_local(**payload)
+
             print(
                 "[ALTA] Alta guardada en DB local "
-                f"UID={self.alta_pendiente['uid']}"
+                f"UID={payload['uid']}"
             )
+
             self.alta_pendiente = None
+            self._sincronizar_pendientes()
             return True
+
         except Exception as e:
             print(f"[ALTA] Error al guardar alta en DB local: {e}")
             traceback.print_exception(type(e), e, e.__traceback__)
@@ -606,19 +742,22 @@ class AppController:
             return
 
         ui = self.current_ui
-
         self._leer_serial_alta(False)
 
         if not self.uid_alta_actual and not self._esperar_uid_alta_disponible():
             self._mostrar_error_uid_alta_no_disponible()
             return
 
-        alias_tarjeta = ui.textonombre.toPlainText().strip().replace(",", " ")
+        alias_tarjeta = self._limpiar_alias_para_arduino(
+            ui.textonombre.toPlainText().strip()
+        )
+
         fecha = ui.calendario.selectedDate()
 
-        # Formatos que ahora espera Arduino
-        vigtarifa = fecha.toString("ddMMyy")          # 6 digitos
-        vigencia12 = fecha.toString("ddMMyy") + "235959"   # 12 digitos
+        # Fecha seleccionada + hora actual real de la PC
+        vigtarifa = fecha.toString("ddMMyy")
+        hora_actual = QDateTime.currentDateTime().toString("HHmmss")
+        vigencia12 = vigtarifa + hora_actual
 
         if not alias_tarjeta:
             QMessageBox.warning(
@@ -650,35 +789,36 @@ class AppController:
                 self._mostrar_error_uid_alta_no_disponible()
                 return
 
-            # Mapeo segun el tipo seleccionado en la UI
-            # Ajusta estos IDs si tu sistema usa otros valores
             if ui.preferencial.isChecked():
-                no_tarjeta = "EU"   # Preferencial
+                no_tarjeta = "EU"
                 tipo_local = "EU"
             else:
-                no_tarjeta = "NO"   # Normal
+                no_tarjeta = "NO"
                 tipo_local = "NO"
 
             id_tipo_tarjeta = "02"
             id_tarifa = "01"
 
-            comando = (
-                f"al,{uid_alta},{alias_tarjeta},{no_tarjeta},"
-                f"{id_tipo_tarjeta},{id_tarifa},{vigtarifa},{vigencia12}"
-            )
-
-            print("[ALTA] Enviando:", comando)
-            self.arduino.enviar_linea(comando)
-
-            # Esto es para guardar en tu DB local cuando Arduino responda "ok"
+            # Guardar primero el estado pendiente para evitar carreras
             self.alta_pendiente = {
                 "uid": uid_alta,
                 "nombre_pasajero": alias_tarjeta,
                 "tipo": tipo_local,
                 "vigencia": vigencia12,
+                "fase": "esperando_alta",
             }
 
+            # PASO 1: alta sin nombre
+            comando = (
+                f"al,{uid_alta},{no_tarjeta},"
+                f"{id_tipo_tarjeta},{id_tarifa},{vigtarifa},{vigencia12}"
+            )
+
+            print("[ALTA] Enviando alta:", comando)
+            self.arduino.enviar_linea(comando)
+
         except Exception as e:
+            self.alta_pendiente = None
             print(f"[ALTA] Error completo al enviar alta: {e}")
             traceback.print_exception(type(e), e, e.__traceback__)
             QMessageBox.critical(

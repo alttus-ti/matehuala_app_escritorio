@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from core.database import get_connection
+from core.sync_queue import enqueue_sync_event
 
 
 class RecargaModel:
@@ -77,7 +80,7 @@ class RecargaModel:
             (
                 uid,
                 saldo_actual,
-                1,          # tipo_tarjeta_id = 1 -> Normal
+                1,
                 pasajero_id,
                 None,
             ),
@@ -93,6 +96,9 @@ class RecargaModel:
         nombre_pasajero: str = "",
         referencia: str | None = None,
     ):
+        created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        nombre_final = (nombre_pasajero or "").strip() or f"Tarjeta {uid[-4:]}"
+
         with get_connection() as connection:
             usuario_id = self._obtener_usuario_id(connection, username)
 
@@ -109,4 +115,20 @@ class RecargaModel:
                 VALUES (?, ?, ?, ?)
                 """,
                 (tarjeta_id, usuario_id, monto, referencia),
+            )
+
+            enqueue_sync_event(
+                connection,
+                event_type="recarga_tarjeta",
+                entity_uid=uid,
+                payload={
+                    "uid": uid,
+                    "username": username,
+                    "monto": float(monto),
+                    "nuevo_saldo": float(nuevo_saldo),
+                    "nombre_pasajero": nombre_final,
+                    "documento": f"AUTO-{uid}",
+                    "referencia": referencia,
+                    "local_created_at": created_at,
+                },
             )
