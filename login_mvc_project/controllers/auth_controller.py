@@ -15,3 +15,9 @@ class AuthController:
 
     def authenticate(self, username: str, password: str) -> tuple[bool, str]:
         return self.model.authenticate(username, password)
+    
+    def get_user_role(self, username: str) -> str | None:
+        return self.model.get_role(username)
+
+    def get_role(self, username: str) -> str | None:
+        return self.get_user_role(username)
