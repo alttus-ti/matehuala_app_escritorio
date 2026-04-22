@@ -15,6 +15,7 @@ class RecargaModel:
                     t.saldo,
                     t.vigencia,
                     t.tipo_tarjeta_id,
+                    t.en_lista_negra,
                     tt.descripcion AS tipo_tarjeta,
                     p.nombre AS nombre_pasajero
                 FROM tarjetas t
