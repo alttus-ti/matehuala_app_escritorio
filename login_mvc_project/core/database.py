@@ -30,6 +30,8 @@ def initialize_database() -> None:
         with get_connection() as connection:
             connection.execute("PRAGMA journal_mode = WAL")
             connection.executescript(script)
+            _ensure_pasajeros_columns(connection)
+            _ensure_recargas_columns(connection)
     except sqlite3.OperationalError as error:
         if "database is locked" in str(error).lower():
             raise RuntimeError(
@@ -39,3 +41,26 @@ def initialize_database() -> None:
             ) from error
 
         raise
+
+
+def _ensure_pasajeros_columns(connection: sqlite3.Connection) -> None:
+    """Agrega columnas nuevas cuando la base local ya existia."""
+    existing_columns = {
+        row["name"]
+        for row in connection.execute("PRAGMA table_info(pasajeros)").fetchall()
+    }
+
+    for column_name in ("curp", "foto", "fecha_nacimiento"):
+        if column_name not in existing_columns:
+            connection.execute(f"ALTER TABLE pasajeros ADD COLUMN {column_name} TEXT")
+
+
+def _ensure_recargas_columns(connection: sqlite3.Connection) -> None:
+    """Agrega columnas nuevas cuando la base local ya existia."""
+    existing_columns = {
+        row["name"]
+        for row in connection.execute("PRAGMA table_info(recargas)").fetchall()
+    }
+
+    if "oficina" not in existing_columns:
+        connection.execute("ALTER TABLE recargas ADD COLUMN oficina TEXT")

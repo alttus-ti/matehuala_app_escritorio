@@ -20,6 +20,9 @@ CREATE TABLE IF NOT EXISTS pasajeros (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre TEXT NOT NULL,
     documento TEXT NOT NULL,
+    curp TEXT,
+    foto TEXT,
+    fecha_nacimiento TEXT,
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
@@ -55,6 +58,7 @@ CREATE TABLE IF NOT EXISTS recargas (
     tarjeta_id INTEGER NOT NULL,
     usuario_id INTEGER NOT NULL,
     monto REAL NOT NULL,
+    oficina TEXT,
     fecha_hora TEXT NOT NULL DEFAULT (datetime('now')),
     conexion_internet INTEGER NOT NULL DEFAULT 0,
     referencia TEXT,

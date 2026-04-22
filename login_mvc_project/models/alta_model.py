@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from core.database import get_connection
+from core.sync_queue import enqueue_sync_event
 
 
 class AltaModel:
@@ -8,11 +11,20 @@ class AltaModel:
         nombre_pasajero: str,
         tipo: str,
         vigencia: str,
+        curp: str | None = None,
+        foto: str | None = None,
+        fecha_nacimiento: str | None = None,
     ):
         tipo_tarjeta_id = 2 if tipo == "EU" else 1
         nombre_final = (nombre_pasajero or "").strip()
         if not nombre_final:
             nombre_final = f"Tarjeta {uid[-4:]}"
+
+        documento_auto = f"AUTO-{uid}"
+        created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        curp_final = (curp or "").strip() or None
+        foto_final = (foto or "").strip() or None
+        fecha_nacimiento_final = (fecha_nacimiento or "").strip() or None
 
         with get_connection() as connection:
             tarjeta = connection.execute(
@@ -29,10 +41,21 @@ class AltaModel:
                 connection.execute(
                     """
                     UPDATE pasajeros
-                    SET nombre = ?
+                    SET nombre = ?,
+                        documento = ?,
+                        curp = ?,
+                        foto = ?,
+                        fecha_nacimiento = ?
                     WHERE id = ?
                     """,
-                    (nombre_final, tarjeta["pasajero_id"]),
+                    (
+                        nombre_final,
+                        documento_auto,
+                        curp_final,
+                        foto_final,
+                        fecha_nacimiento_final,
+                        tarjeta["pasajero_id"],
+                    ),
                 )
                 connection.execute(
                     """
@@ -42,22 +65,48 @@ class AltaModel:
                     """,
                     (0.0, tipo_tarjeta_id, vigencia, tarjeta["id"]),
                 )
-                return tarjeta["id"]
+                tarjeta_id = tarjeta["id"]
+            else:
+                cursor_pasajero = connection.execute(
+                    """
+                    INSERT INTO pasajeros (nombre, documento, curp, foto, fecha_nacimiento)
+                    VALUES (?, ?, ?, ?, ?)
+                    """,
+                    (
+                        nombre_final,
+                        documento_auto,
+                        curp_final,
+                        foto_final,
+                        fecha_nacimiento_final,
+                    ),
+                )
+                pasajero_id = cursor_pasajero.lastrowid
 
-            cursor_pasajero = connection.execute(
-                """
-                INSERT INTO pasajeros (nombre, documento)
-                VALUES (?, ?)
-                """,
-                (nombre_final, f"AUTO-{uid}"),
-            )
-            pasajero_id = cursor_pasajero.lastrowid
+                cursor_tarjeta = connection.execute(
+                    """
+                    INSERT INTO tarjetas (uid, saldo, tipo_tarjeta_id, pasajero_id, vigencia)
+                    VALUES (?, ?, ?, ?, ?)
+                    """,
+                    (uid, 0.0, tipo_tarjeta_id, pasajero_id, vigencia),
+                )
+                tarjeta_id = cursor_tarjeta.lastrowid
 
-            cursor_tarjeta = connection.execute(
-                """
-                INSERT INTO tarjetas (uid, saldo, tipo_tarjeta_id, pasajero_id, vigencia)
-                VALUES (?, ?, ?, ?, ?)
-                """,
-                (uid, 0.0, tipo_tarjeta_id, pasajero_id, vigencia),
+            enqueue_sync_event(
+                connection,
+                event_type="alta_tarjeta",
+                entity_uid=uid,
+                payload={
+                    "uid": uid,
+                    "saldo": 0.0,
+                    "nombre_pasajero": nombre_final,
+                    "documento": documento_auto,
+                    "curp": curp_final,
+                    "foto": foto_final,
+                    "fecha_nacimiento": fecha_nacimiento_final,
+                    "tipo_codigo_local": tipo,
+                    "vigencia": vigencia,
+                    "local_created_at": created_at,
+                },
             )
-            return cursor_tarjeta.lastrowid
+
+            return tarjeta_id

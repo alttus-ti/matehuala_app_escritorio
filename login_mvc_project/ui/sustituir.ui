@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>565</width>
-    <height>386</height>
+    <width>761</width>
+    <height>538</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,8 +15,8 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout">
+    <item row="0" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
        <widget class="QPushButton" name="botonregresar">
         <property name="maximumSize">
@@ -35,9 +35,25 @@
         </property>
        </widget>
       </item>
+      <item>
+       <spacer name="espacio1">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>700</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
      </layout>
     </item>
-    <item row="1" column="0">
+    <item row="1" column="0" colspan="2">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QComboBox" name="lista">
@@ -50,7 +66,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="cancelar">
+       <widget class="QLabel" name="sustituirtarjeta">
         <property name="maximumSize">
          <size>
           <width>200</width>
@@ -74,7 +90,7 @@
        </widget>
       </item>
       <item>
-       <spacer name="espacio1">
+       <spacer name="espacio2">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -91,10 +107,10 @@
       </item>
      </layout>
     </item>
-    <item row="2" column="0">
+    <item row="2" column="0" colspan="2">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <spacer name="espacio2">
+       <spacer name="espacio4">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -110,10 +126,10 @@
        </spacer>
       </item>
       <item>
-       <widget class="QTextBrowser" name="textocancelar">
+       <widget class="QLineEdit" name="buscador">
         <property name="maximumSize">
          <size>
-          <width>500</width>
+          <width>350</width>
           <height>30</height>
          </size>
         </property>
@@ -138,17 +154,213 @@
      </layout>
     </item>
     <item row="3" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QPushButton" name="botoncancelar">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="nombre">
         <property name="maximumSize">
          <size>
-          <width>250</width>
-          <height>16777215</height>
+          <width>100</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Nombre</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextBrowser" name="textonombre">
+        <property name="maximumSize">
+         <size>
+          <width>300</width>
+          <height>30</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="uid">
+        <property name="maximumSize">
+         <size>
+          <width>600</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>UID</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="textouid">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>10</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>uid</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="tipo">
+        <property name="maximumSize">
+         <size>
+          <width>600</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Tipo de Tarjeta</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="tipotarjeta">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>10</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Tipo de tarjeta</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item row="3" column="1">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="vigencia">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Vigencia</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextBrowser" name="textovigencia">
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>30</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCalendarWidget" name="calendario">
+        <property name="maximumSize">
+         <size>
+          <width>380</width>
+          <height>280</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="4" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QPushButton" name="botonsustituir">
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>30</height>
          </size>
         </property>
         <property name="text">
-         <string>Cancelar</string>
+         <string>Sustituir</string>
         </property>
        </widget>
       </item>
