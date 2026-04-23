@@ -17,10 +17,14 @@ class CancelarModel:
                     t.motivo_baja,
                     t.fecha_baja,
                     t.pasajero_id,
+<<<<<<< HEAD
                     p.nombre AS nombre_pasajero,
                     p.curp,
                     p.foto,
                     p.fecha_nacimiento
+=======
+                    p.nombre AS nombre_pasajero
+>>>>>>> 3b4dc0a666cd5a2194eed821832e1d14eae96219
                 FROM tarjetas t
                 LEFT JOIN pasajeros p ON p.id = t.pasajero_id
                 WHERE t.uid = ?
@@ -78,8 +82,13 @@ class CancelarModel:
 
         cursor_pasajero = connection.execute(
             """
+<<<<<<< HEAD
             INSERT INTO pasajeros (nombre, documento, curp, foto, fecha_nacimiento)
             VALUES (?, ?, NULL, NULL, NULL)
+=======
+            INSERT INTO pasajeros (nombre, documento)
+            VALUES (?, ?)
+>>>>>>> 3b4dc0a666cd5a2194eed821832e1d14eae96219
             """,
             (nombre_final, documento_auto),
         )
@@ -156,9 +165,12 @@ class CancelarModel:
                 payload={
                     "uid": uid,
                     "nombre_pasajero": (nombre_pasajero or "").strip(),
+<<<<<<< HEAD
                     "curp": None,
                     "foto": None,
                     "fecha_nacimiento": None,
+=======
+>>>>>>> 3b4dc0a666cd5a2194eed821832e1d14eae96219
                     "saldo_actual": float(saldo_actual or 0),
                     "en_lista_negra": bool(en_lista_negra),
                     "motivo_baja": motivo_final,
@@ -166,4 +178,8 @@ class CancelarModel:
                 },
             )
 
+<<<<<<< HEAD
             return tarjeta_id
+=======
+            return tarjeta_id
+>>>>>>> 3b4dc0a666cd5a2194eed821832e1d14eae96219

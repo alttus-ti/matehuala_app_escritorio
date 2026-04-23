@@ -104,7 +104,10 @@ class RecargaModel:
     ):
         created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         nombre_final = (nombre_pasajero or "").strip() or f"Tarjeta {uid[-4:]}"
+<<<<<<< HEAD
         oficina_final = (oficina or "").strip() or None
+=======
+>>>>>>> 3b4dc0a666cd5a2194eed821832e1d14eae96219
 
         with get_connection() as connection:
             usuario_id = self._obtener_usuario_id(connection, username)
@@ -121,7 +124,11 @@ class RecargaModel:
                 INSERT INTO recargas (tarjeta_id, usuario_id, monto, oficina, referencia)
                 VALUES (?, ?, ?, ?, ?)
                 """,
+<<<<<<< HEAD
                 (tarjeta_id, usuario_id, monto, oficina_final, referencia),
+=======
+                (tarjeta_id, usuario_id, monto, referencia),
+>>>>>>> 3b4dc0a666cd5a2194eed821832e1d14eae96219
             )
 
             enqueue_sync_event(
@@ -133,12 +140,17 @@ class RecargaModel:
                     "username": username,
                     "monto": float(monto),
                     "nuevo_saldo": float(nuevo_saldo),
+<<<<<<< HEAD
                     "oficina": oficina_final,
                     "nombre_pasajero": nombre_final,
                     "documento": f"AUTO-{uid}",
                     "curp": None,
                     "foto": None,
                     "fecha_nacimiento": None,
+=======
+                    "nombre_pasajero": nombre_final,
+                    "documento": f"AUTO-{uid}",
+>>>>>>> 3b4dc0a666cd5a2194eed821832e1d14eae96219
                     "referencia": referencia,
                     "local_created_at": created_at,
                 },
