@@ -15,8 +15,12 @@ class RecargaModel:
                     t.saldo,
                     t.vigencia,
                     t.tipo_tarjeta_id,
+                    t.en_lista_negra,
                     tt.descripcion AS tipo_tarjeta,
-                    p.nombre AS nombre_pasajero
+                    p.nombre AS nombre_pasajero,
+                    p.curp,
+                    p.foto,
+                    p.fecha_nacimiento
                 FROM tarjetas t
                 INNER JOIN tipo_tarjetas tt ON tt.id = t.tipo_tarjeta_id
                 INNER JOIN pasajeros p ON p.id = t.pasajero_id
@@ -66,8 +70,8 @@ class RecargaModel:
 
         cursor_pasajero = connection.execute(
             """
-            INSERT INTO pasajeros (nombre, documento)
-            VALUES (?, ?)
+            INSERT INTO pasajeros (nombre, documento, curp, foto, fecha_nacimiento)
+            VALUES (?, ?, NULL, NULL, NULL)
             """,
             (nombre_final, documento_auto),
         )
@@ -96,9 +100,14 @@ class RecargaModel:
         nuevo_saldo: float,
         nombre_pasajero: str = "",
         referencia: str | None = None,
+        oficina: str | None = None,
     ):
         created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         nombre_final = (nombre_pasajero or "").strip() or f"Tarjeta {uid[-4:]}"
+<<<<<<< HEAD
+        oficina_final = (oficina or "").strip() or None
+=======
+>>>>>>> 3b4dc0a666cd5a2194eed821832e1d14eae96219
 
         with get_connection() as connection:
             usuario_id = self._obtener_usuario_id(connection, username)
@@ -112,10 +121,14 @@ class RecargaModel:
 
             connection.execute(
                 """
-                INSERT INTO recargas (tarjeta_id, usuario_id, monto, referencia)
-                VALUES (?, ?, ?, ?)
+                INSERT INTO recargas (tarjeta_id, usuario_id, monto, oficina, referencia)
+                VALUES (?, ?, ?, ?, ?)
                 """,
+<<<<<<< HEAD
+                (tarjeta_id, usuario_id, monto, oficina_final, referencia),
+=======
                 (tarjeta_id, usuario_id, monto, referencia),
+>>>>>>> 3b4dc0a666cd5a2194eed821832e1d14eae96219
             )
 
             enqueue_sync_event(
@@ -127,8 +140,17 @@ class RecargaModel:
                     "username": username,
                     "monto": float(monto),
                     "nuevo_saldo": float(nuevo_saldo),
+<<<<<<< HEAD
+                    "oficina": oficina_final,
                     "nombre_pasajero": nombre_final,
                     "documento": f"AUTO-{uid}",
+                    "curp": None,
+                    "foto": None,
+                    "fecha_nacimiento": None,
+=======
+                    "nombre_pasajero": nombre_final,
+                    "documento": f"AUTO-{uid}",
+>>>>>>> 3b4dc0a666cd5a2194eed821832e1d14eae96219
                     "referencia": referencia,
                     "local_created_at": created_at,
                 },
