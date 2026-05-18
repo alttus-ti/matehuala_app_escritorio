@@ -1,15 +1,49 @@
-from PySide6.QtCore import (QCoreApplication,QMetaObject, Qt)
-from PySide6.QtGui import (QFont)
-from PySide6.QtWidgets import (QFrame, QGridLayout, QLabel,
-    QPushButton, QSizePolicy, QSpacerItem,
-    QVBoxLayout, QWidget)
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file 'administrador.ui'
+##
+## Created by: Qt User Interface Compiler version 6.11.0
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
+
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
+    QLabel, QMainWindow, QPushButton, QSizePolicy,
+    QSpacerItem, QToolButton, QVBoxLayout, QWidget)
 
 class AdminWindow(object):
-    def setupUi(self, mainWindow):
-        if not mainWindow.objectName():
-            mainWindow.setObjectName(u"mainWindow")
-        mainWindow.resize(571, 399)
-        self.centralwidget = QWidget(mainWindow)
+    def setupUi(self, AdminWindow):
+        if not AdminWindow.objectName():
+            AdminWindow.setObjectName(u"AdminWindow")
+        AdminWindow.resize(680, 680)
+        AdminWindow.setStyleSheet(u"QToolButton {\n"
+"    background-color: transparent;\n"
+"    border: none;\n"
+"    color: white;\n"
+"    padding: 0px;\n"
+"    margin: 0px;\n"
+"    font-size: 14px;\n"
+"    font-weight: normal;\n"
+"}\n"
+"\n"
+"QToolButton:hover {\n"
+"    color: #FFD966;\n"
+"    text-decoration: underline;\n"
+"}\n"
+"\n"
+"QToolButton:pressed {\n"
+"    background-color: transparent;\n"
+"    border: none;\n"
+"}")
+        self.centralwidget = QWidget(AdminWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.centralwidget.setStyleSheet(u"QWidget#centralwidget {\n"
 "    background-color: #EAF4FF;\n"
@@ -130,6 +164,46 @@ class AdminWindow(object):
 "")
         self.gridLayout = QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(u"gridLayout")
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalSpacer = QSpacerItem(500, 10, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout.addItem(self.horizontalSpacer)
+
+        self.usuario = QToolButton(self.centralwidget)
+        self.usuario.setObjectName(u"usuario")
+        self.usuario.setMaximumSize(QSize(16777215, 40))
+        self.usuario.setStyleSheet(u"QToolButton {\n"
+"    background-color: transparent;\n"
+"    border: none;\n"
+"    color: #245E91;\n"
+"    padding: 0px;\n"
+"    margin: 0px;\n"
+"    font: 700 10pt \"Arial\";\n"
+"}\n"
+"\n"
+"QToolButton:hover {\n"
+"    color: #F4C430;\n"
+"    text-decoration: underline;\n"
+"}\n"
+"\n"
+"QToolButton:pressed {\n"
+"    background-color: #F4C430;\n"
+"    color: #245E91;\n"
+"    border-radius: 8px;\n"
+"    padding: 4px 8px;\n"
+"}")
+
+        self.horizontalLayout.addWidget(self.usuario)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout, 0, 0, 1, 1)
+
+        self.verticalLayout_4 = QVBoxLayout()
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+
+        self.gridLayout.addLayout(self.verticalLayout_4, 1, 0, 1, 1)
+
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.frameHeader = QFrame(self.centralwidget)
@@ -178,102 +252,118 @@ class AdminWindow(object):
         font.setFamilies([u"Arial"])
         font.setPointSize(18)
         font.setBold(True)
+        font.setItalic(False)
         self.menu.setFont(font)
         self.menu.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.menu)
 
 
-        self.gridLayout.addLayout(self.verticalLayout, 0, 0, 1, 1)
+        self.gridLayout.addLayout(self.verticalLayout, 2, 0, 1, 1)
+
+        self.verticalLayout_3 = QVBoxLayout()
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+
+        self.gridLayout.addLayout(self.verticalLayout_3, 3, 0, 1, 1)
+
+        self.verticalLayout_2 = QVBoxLayout()
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+
+        self.gridLayout.addLayout(self.verticalLayout_2, 4, 0, 1, 1)
 
         self.gridLayout_2 = QGridLayout()
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.verticalSpacer = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-
-        self.gridLayout_2.addItem(self.verticalSpacer, 2, 1, 1, 1)
-
-        self.botonrecarga = QPushButton(self.centralwidget)
-        self.botonrecarga.setObjectName(u"botonrecarga")
-
-        self.gridLayout_2.addWidget(self.botonrecarga, 1, 3, 1, 1)
-
-        self.botonalta = QPushButton(self.centralwidget)
-        self.botonalta.setObjectName(u"botonalta")
-
-        self.gridLayout_2.addWidget(self.botonalta, 1, 1, 1, 1)
-
-        self.botoncancelar = QPushButton(self.centralwidget)
-        self.botoncancelar.setObjectName(u"botoncancelar")
-
-        self.gridLayout_2.addWidget(self.botoncancelar, 1, 4, 1, 1)
-
-        self.botonsustituir = QPushButton(self.centralwidget)
-        self.botonsustituir.setObjectName(u"botonsustituir")
-
-        self.gridLayout_2.addWidget(self.botonsustituir, 1, 2, 1, 1)
-
         self.espacio1 = QSpacerItem(10, 10, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.gridLayout_2.addItem(self.espacio1, 1, 0, 1, 1)
-
-        self.espacio2 = QSpacerItem(10, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
-
-        self.gridLayout_2.addItem(self.espacio2, 1, 5, 1, 1)
-
-        self.verticalSpacer_3 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-
-        self.gridLayout_2.addItem(self.verticalSpacer_3, 2, 3, 1, 1)
-
-        self.verticalSpacer_4 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-
-        self.gridLayout_2.addItem(self.verticalSpacer_4, 2, 4, 1, 1)
-
-        self.verticalSpacer_2 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-
-        self.gridLayout_2.addItem(self.verticalSpacer_2, 2, 2, 1, 1)
 
         self.verticalSpacer_5 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.gridLayout_2.addItem(self.verticalSpacer_5, 0, 4, 1, 1)
 
+        self.verticalSpacer_4 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.gridLayout_2.addItem(self.verticalSpacer_4, 2, 4, 1, 1)
+
+        self.botoncancelar = QPushButton(self.centralwidget)
+        self.botoncancelar.setObjectName(u"botoncancelar")
+        self.botoncancelar.setMinimumSize(QSize(152, 66))
+
+        self.gridLayout_2.addWidget(self.botoncancelar, 1, 4, 1, 1)
+
+        self.espacio2 = QSpacerItem(10, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.gridLayout_2.addItem(self.espacio2, 1, 5, 1, 1)
+
+        self.botonsustituir = QPushButton(self.centralwidget)
+        self.botonsustituir.setObjectName(u"botonsustituir")
+        self.botonsustituir.setMinimumSize(QSize(152, 66))
+
+        self.gridLayout_2.addWidget(self.botonsustituir, 1, 2, 1, 1)
+
         self.verticalSpacer_6 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.gridLayout_2.addItem(self.verticalSpacer_6, 0, 3, 1, 1)
 
-        self.verticalSpacer_7 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        self.verticalSpacer_3 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
-        self.gridLayout_2.addItem(self.verticalSpacer_7, 0, 2, 1, 1)
+        self.gridLayout_2.addItem(self.verticalSpacer_3, 2, 3, 1, 1)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.gridLayout_2.addItem(self.verticalSpacer_2, 2, 2, 1, 1)
 
         self.verticalSpacer_8 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.gridLayout_2.addItem(self.verticalSpacer_8, 0, 1, 1, 1)
 
+        self.verticalSpacer_7 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
-        self.gridLayout.addLayout(self.gridLayout_2, 1, 0, 1, 1)
+        self.gridLayout_2.addItem(self.verticalSpacer_7, 0, 2, 1, 1)
 
-        mainWindow.setCentralWidget(self.centralwidget)
+        self.botonrecarga = QPushButton(self.centralwidget)
+        self.botonrecarga.setObjectName(u"botonrecarga")
+        self.botonrecarga.setMinimumSize(QSize(152, 66))
 
-        self.retranslateUi(mainWindow)
+        self.gridLayout_2.addWidget(self.botonrecarga, 1, 3, 1, 1)
 
-        QMetaObject.connectSlotsByName(mainWindow)
+        self.verticalSpacer = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.gridLayout_2.addItem(self.verticalSpacer, 2, 1, 1, 1)
+
+        self.botonalta = QPushButton(self.centralwidget)
+        self.botonalta.setObjectName(u"botonalta")
+        self.botonalta.setMinimumSize(QSize(152, 66))
+
+        self.gridLayout_2.addWidget(self.botonalta, 1, 1, 1, 1)
+
+
+        self.gridLayout.addLayout(self.gridLayout_2, 5, 0, 1, 1)
+
+        AdminWindow.setCentralWidget(self.centralwidget)
+
+        self.retranslateUi(AdminWindow)
+
+        QMetaObject.connectSlotsByName(AdminWindow)
     # setupUi
 
-    def retranslateUi(self, mainWindow):
+    def retranslateUi(self, AdminWindow):
+        AdminWindow.setWindowTitle(QCoreApplication.translate("AdminWindow", u"RUMSA | Administrador", None))
 #if QT_CONFIG(accessibility)
-        mainWindow.setAccessibleName("")
+        AdminWindow.setAccessibleName("")
 #endif // QT_CONFIG(accessibility)
-        mainWindow.setWindowTitle(QCoreApplication.translate("mainWindow", u"RUMSA | Administrador", None))
-        self.labelBrand.setText(QCoreApplication.translate("mainWindow", u"RUMSA", None))
-        self.labelCompany.setText(QCoreApplication.translate("mainWindow", u"Rutas Urbanas de Matehuala, S.A. de C.V.", None))
-        self.labelHeaderInfo.setText(QCoreApplication.translate("mainWindow", u"Rutas Urbanas de Matehuala", None))
-        self.labelEstadoConexion.setText(QCoreApplication.translate("mainWindow", u"\u25cf Conectando", None))
+        self.usuario.setText(QCoreApplication.translate("AdminWindow", u"Usuario", None))
+        self.labelBrand.setText(QCoreApplication.translate("AdminWindow", u"RUMSA", None))
+        self.labelCompany.setText(QCoreApplication.translate("AdminWindow", u"Rutas Urbanas de Matehuala, S.A. de C.V.", None))
+        self.labelHeaderInfo.setText(QCoreApplication.translate("AdminWindow", u"Rutas Urbanas de Matehuala", None))
 #if QT_CONFIG(tooltip)
-        self.labelEstadoConexion.setToolTip(QCoreApplication.translate("mainWindow", u"Este texto puede cambiar a: Conectando, Sin conexi\u00f3n, Sincronizando o Conectado.", None))
+        self.labelEstadoConexion.setToolTip(QCoreApplication.translate("AdminWindow", u"Este texto puede cambiar a: Conectando, Sin conexi\u00f3n, Sincronizando o Conectado.", None))
 #endif // QT_CONFIG(tooltip)
-        self.menu.setText(QCoreApplication.translate("mainWindow", u"Men\u00fa principal", None))
-        self.botonrecarga.setText(QCoreApplication.translate("mainWindow", u"Recarga", None))
-        self.botonalta.setText(QCoreApplication.translate("mainWindow", u"Alta", None))
-        self.botoncancelar.setText(QCoreApplication.translate("mainWindow", u"Cancelar", None))
-        self.botonsustituir.setText(QCoreApplication.translate("mainWindow", u"Sustituir", None))
+        self.labelEstadoConexion.setText(QCoreApplication.translate("AdminWindow", u"\u25cf Conectando", None))
+        self.menu.setText(QCoreApplication.translate("AdminWindow", u"Men\u00fa principal", None))
+        self.botoncancelar.setText(QCoreApplication.translate("AdminWindow", u"Cancelar", None))
+        self.botonsustituir.setText(QCoreApplication.translate("AdminWindow", u"Sustituir", None))
+        self.botonrecarga.setText(QCoreApplication.translate("AdminWindow", u"Recarga", None))
+        self.botonalta.setText(QCoreApplication.translate("AdminWindow", u"Alta", None))
     # retranslateUi
 

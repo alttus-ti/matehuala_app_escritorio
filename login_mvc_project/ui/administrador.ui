@@ -1,17 +1,41 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mainWindow</class>
- <widget class="QMainWindow" name="mainWindow">
+ <class>AdminWindow</class>
+ <widget class="QMainWindow" name="AdminWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>571</width>
-    <height>399</height>
+    <width>680</width>
+    <height>680</height>
    </rect>
   </property>
+  <property name="windowTitle">
+   <string>RUMSA | Administrador</string>
+  </property>
   <property name="accessibleName">
-   <string />
+   <string/>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QToolButton {
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 0px;
+    margin: 0px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+QToolButton:hover {
+    color: #FFD966;
+    text-decoration: underline;
+}
+
+QToolButton:pressed {
+    background-color: transparent;
+    border: none;
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
@@ -25,32 +49,32 @@ QFrame#frameHeader {
 }
 QLabel#labelBrand {
     color: #F0B51D;
-    font: 700 24pt "Arial";
+    font: 700 24pt &quot;Arial&quot;;
     letter-spacing: 2px;
 }
 QLabel#labelCompany {
     color: #2E79BD;
-    font: 700 10pt "Arial";
+    font: 700 10pt &quot;Arial&quot;;
 }
 QLabel#labelHeaderInfo {
     color: #6C7B88;
-    font: 9pt "Arial";
+    font: 9pt &quot;Arial&quot;;
 }
 QLabel#menu, QLabel#label, QLabel#Recargar, QLabel#alta {
     color: #245E91;
-    font: 700 18pt "Arial";
+    font: 700 18pt &quot;Arial&quot;;
 }
 QLabel#otrosdatos, QLabel#nombre, QLabel#uid, QLabel#tarjeta, QLabel#saldo, QLabel#saldonuevo, QLabel#vigencia {
     color: #245E91;
-    font: 700 10pt "Arial";
+    font: 700 10pt &quot;Arial&quot;;
 }
 QLabel#texto1, QLabel#texto2, QLabel#texto4, QLabel#texto5, QLabel#texto6, QLabel#texto7 {
     color: #4B5560;
-    font: 10pt "Arial";
+    font: 10pt &quot;Arial&quot;;
 }
 QLabel#signopeso, QLabel#signopeso2, QLabel#signopeso3 {
     color: #F0B51D;
-    font: 700 16pt "Arial";
+    font: 700 16pt &quot;Arial&quot;;
 }
 QPushButton {
     background-color: #F4C430;
@@ -58,7 +82,7 @@ QPushButton {
     border: none;
     border-radius: 12px;
     padding: 10px 16px;
-    font: 700 10pt "Arial";
+    font: 700 10pt &quot;Arial&quot;;
 }
 QPushButton:hover {
     background-color: #E7B91C;
@@ -86,7 +110,7 @@ QTextEdit:focus, QComboBox:focus, QLineEdit:focus {
 }
 QRadioButton {
     color: #4B5560;
-    font: 10pt "Arial";
+    font: 10pt &quot;Arial&quot;;
 }
 QRadioButton::indicator:checked {
     background-color: #F4C430;
@@ -100,7 +124,7 @@ QCalendarWidget QWidget {
 }
 QCalendarWidget QToolButton {
     color: #245E91;
-    font: 700 10pt "Arial";
+    font: 700 10pt &quot;Arial&quot;;
 }
 QCalendarWidget QMenu {
     background-color: white;
@@ -112,13 +136,13 @@ QCalendarWidget QSpinBox {
 QHeaderView::section {
     background-color: #D7ECFF;
     color: #245E91;
-    font: 700 9pt "Arial";
+    font: 700 9pt &quot;Arial&quot;;
     border: 1px solid #B8D8F3;
 }
 QPushButton#botonrecarga, QPushButton#botonalta, QPushButton#botonsustituir, QPushButton#botoncancelar {
     min-width: 120px;
     min-height: 46px;
-    font: 700 11pt "Arial";
+    font: 700 11pt &quot;Arial&quot;;
 }
 QLabel#labelEstadoConexion {
     background-color: #FFF7D6;
@@ -126,12 +150,70 @@ QLabel#labelEstadoConexion {
     border: 1px solid #F0C247;
     border-radius: 10px;
     padding: 4px 10px;
-    font: 700 8pt "Arial";
+    font: 700 8pt &quot;Arial&quot;;
 }
 </string>
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>500</width>
+          <height>10</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QToolButton" name="usuario">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QToolButton {
+    background-color: transparent;
+    border: none;
+    color: #245E91;
+    padding: 0px;
+    margin: 0px;
+    font: 700 10pt &quot;Arial&quot;;
+}
+
+QToolButton:hover {
+    color: #F4C430;
+    text-decoration: underline;
+}
+
+QToolButton:pressed {
+    background-color: #F4C430;
+    color: #245E91;
+    border-radius: 8px;
+    padding: 4px 8px;
+}</string>
+        </property>
+        <property name="text">
+         <string>Usuario</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_4"/>
+    </item>
+    <item row="2" column="0">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QFrame" name="frameHeader">
@@ -190,7 +272,20 @@ QLabel#labelEstadoConexion {
            </property>
           </widget>
          </item>
-        <item><widget class="QLabel" name="labelEstadoConexion"><property name="text"><string>● Conectando</string></property><property name="alignment"><set>Qt::AlignCenter</set></property><property name="toolTip"><string>Este texto puede cambiar a: Conectando, Sin conexión, Sincronizando o Conectado.</string></property></widget></item></layout>
+         <item>
+          <widget class="QLabel" name="labelEstadoConexion">
+           <property name="toolTip">
+            <string>Este texto puede cambiar a: Conectando, Sin conexión, Sincronizando o Conectado.</string>
+           </property>
+           <property name="text">
+            <string>● Conectando</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
       <item>
@@ -215,7 +310,8 @@ QLabel#labelEstadoConexion {
          <font>
           <family>Arial</family>
           <pointsize>18</pointsize>
-          <weight>75</weight>
+          <weight>87</weight>
+          <italic>false</italic>
           <bold>true</bold>
          </font>
         </property>
@@ -229,52 +325,14 @@ QLabel#labelEstadoConexion {
       </item>
      </layout>
     </item>
-    <item row="1" column="0">
+    <item row="3" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_3"/>
+    </item>
+    <item row="4" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_2"/>
+    </item>
+    <item row="5" column="0">
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="2" column="1">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="3">
-       <widget class="QPushButton" name="botonrecarga">
-        <property name="text">
-         <string>Recarga</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QPushButton" name="botonalta">
-        <property name="text">
-         <string>Alta</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="4">
-       <widget class="QPushButton" name="botoncancelar">
-        <property name="text">
-         <string>Cancelar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="botonsustituir">
-        <property name="text">
-         <string>Sustituir</string>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="0">
        <spacer name="espacio1">
         <property name="orientation">
@@ -291,24 +349,8 @@ QLabel#labelEstadoConexion {
         </property>
        </spacer>
       </item>
-      <item row="1" column="5">
-       <spacer name="espacio2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>10</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="2" column="3">
-       <spacer name="verticalSpacer_3">
+      <item row="0" column="4">
+       <spacer name="verticalSpacer_5">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -339,37 +381,47 @@ QLabel#labelEstadoConexion {
         </property>
        </spacer>
       </item>
-      <item row="2" column="2">
-       <spacer name="verticalSpacer_2">
+      <item row="1" column="4">
+       <widget class="QPushButton" name="botoncancelar">
+        <property name="minimumSize">
+         <size>
+          <width>152</width>
+          <height>66</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Cancelar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5">
+       <spacer name="espacio2">
         <property name="orientation">
-         <enum>Qt::Vertical</enum>
+         <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeType">
          <enum>QSizePolicy::Fixed</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>20</width>
+          <width>10</width>
           <height>20</height>
          </size>
         </property>
        </spacer>
       </item>
-      <item row="0" column="4">
-       <spacer name="verticalSpacer_5">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
+      <item row="1" column="2">
+       <widget class="QPushButton" name="botonsustituir">
+        <property name="minimumSize">
          <size>
-          <width>20</width>
-          <height>20</height>
+          <width>152</width>
+          <height>66</height>
          </size>
         </property>
-       </spacer>
+        <property name="text">
+         <string>Sustituir</string>
+        </property>
+       </widget>
       </item>
       <item row="0" column="3">
        <spacer name="verticalSpacer_6">
@@ -387,8 +439,24 @@ QLabel#labelEstadoConexion {
         </property>
        </spacer>
       </item>
-      <item row="0" column="2">
-       <spacer name="verticalSpacer_7">
+      <item row="2" column="3">
+       <spacer name="verticalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="2">
+       <spacer name="verticalSpacer_2">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -419,14 +487,69 @@ QLabel#labelEstadoConexion {
         </property>
        </spacer>
       </item>
+      <item row="0" column="2">
+       <spacer name="verticalSpacer_7">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="3">
+       <widget class="QPushButton" name="botonrecarga">
+        <property name="minimumSize">
+         <size>
+          <width>152</width>
+          <height>66</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Recarga</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="botonalta">
+        <property name="minimumSize">
+         <size>
+          <width>152</width>
+          <height>66</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Alta</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>
   </widget>
-  <property name="windowTitle">
-   <string>RUMSA | Administrador</string>
-  </property>
  </widget>
- <resources />
- <connections />
+ <resources/>
+ <connections/>
 </ui>

@@ -1,104 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SustituirWindow</class>
- <widget class="QMainWindow" name="SustituirWindow">
+ <class>RegistroUsuarioWindow</class>
+ <widget class="QMainWindow" name="RegistroUsuarioWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>680</width>
-    <height>680</height>
+    <height>694</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>RUMSA | Sustituir Tarjeta</string>
+   <string>MainWindow</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: #EAF4FF;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
-      <item>
-       <widget class="QPushButton" name="botonregresar">
-        <property name="maximumSize">
-         <size>
-          <width>35</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: #5fa8e8;
-color: #ffffff;
-border: 1px solid #5fa8e8;
-</string>
-        </property>
-        <property name="text">
-         <string>⇦</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>500</width>
-          <height>13</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QToolButton" name="usuario">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QToolButton {
-    background-color: transparent;
-    border: none;
-    color: #245E91;
-    padding: 0px;
-    margin: 0px;
-    font: 700 10pt &quot;Arial&quot;;
-}
-
-QToolButton:hover {
-    color: #F4C430;
-    text-decoration: underline;
-}
-
-QToolButton:pressed {
-    background-color: #F4C430;
-    color: #245E91;
-    border-radius: 8px;
-    padding: 4px 8px;
-}</string>
-        </property>
-        <property name="text">
-         <string>Usuario</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="1" column="0" colspan="2">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="1" column="0">
      <layout class="QVBoxLayout" name="verticalLayout_7">
       <item>
        <widget class="QFrame" name="frame">
@@ -117,7 +37,7 @@ QToolButton:pressed {
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_8">
          <item>
-          <widget class="QLabel" name="labelBrand">
+          <widget class="QLabel" name="Rumsa">
            <property name="palette">
             <palette>
              <active>
@@ -354,7 +274,7 @@ background-color: #D7ECFF;
 background-color: #D7ECFF;</string>
            </property>
            <property name="text">
-            <string>Módulo de sustitución</string>
+            <string>Módulo de Registro Empleados</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -390,7 +310,313 @@ background-color: #D7ECFF;</string>
       </item>
      </layout>
     </item>
-    <item row="2" column="0" colspan="2">
+    <item row="4" column="0">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="correo">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:#245e91;</string>
+        </property>
+        <property name="text">
+         <string>Correo</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="rol">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:#245e91;</string>
+        </property>
+        <property name="text">
+         <string>Rol</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="nombre">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:#245e91;</string>
+        </property>
+        <property name="text">
+         <string>Nombre</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QComboBox" name="listaroles">
+        <property name="maximumSize">
+         <size>
+          <width>350</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"> background-color: white;
+    border: 3px solid #B7DDF5;
+    color: #2e3a46;
+border-radius: 10px;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QTextEdit" name="textonombre">
+        <property name="maximumSize">
+         <size>
+          <width>350</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"> background-color: white;
+    border: 3px solid #B7DDF5;
+    color: #2e3a46;
+border-radius: 10px;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QTextEdit" name="textopassword">
+        <property name="maximumSize">
+         <size>
+          <width>350</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"> background-color: white;
+    border: 3px solid #B7DDF5;
+    color: #2e3a46;
+border-radius: 10px;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QTextEdit" name="textocorreo">
+        <property name="maximumSize">
+         <size>
+          <width>350</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"> background-color: white;
+    border: 3px solid #B7DDF5;
+    color: #2e3a46;
+border-radius: 10px;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="password">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:#245e91;</string>
+        </property>
+        <property name="text">
+         <string>Contraseña</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QPushButton" name="botonregresar">
+        <property name="maximumSize">
+         <size>
+          <width>35</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #5fa8e8;
+color: #ffffff;
+border: 1px solid #5fa8e8;
+</string>
+        </property>
+        <property name="text">
+         <string>⇦</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="espacio1">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>500</width>
+          <height>13</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QToolButton" name="usuario">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QToolButton {
+    background-color: transparent;
+    border: none;
+    color: #245E91;
+    padding: 0px;
+    margin: 0px;
+    font: 700 10pt &quot;Arial&quot;;
+}
+
+QToolButton:hover {
+    color: #F4C430;
+    text-decoration: underline;
+}
+
+QToolButton:pressed {
+    background-color: #F4C430;
+    color: #245E91;
+    border-radius: 8px;
+    padding: 4px 8px;
+}</string>
+        </property>
+        <property name="text">
+         <string>Usuario</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="5" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <spacer name="espacio4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>250</width>
+          <height>45</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="botonguardar">
+        <property name="maximumSize">
+         <size>
+          <width>300</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #f4c430;
+color: #3e3a32;
+border-radius: 10px;</string>
+        </property>
+        <property name="text">
+         <string>Guardar</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="espacio3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>250</width>
+          <height>45</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <spacer name="espacio5">
@@ -398,7 +624,7 @@ background-color: #D7ECFF;</string>
          <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeType">
-         <enum>QSizePolicy::Expanding</enum>
+         <enum>QSizePolicy::Fixed</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -428,7 +654,7 @@ border-radius: 10px;</string>
        <widget class="QLabel" name="sustituirtarjeta">
         <property name="maximumSize">
          <size>
-          <width>200</width>
+          <width>320</width>
           <height>25</height>
          </size>
         </property>
@@ -444,7 +670,7 @@ border-radius: 10px;</string>
          <string notr="true">color: #245e91;</string>
         </property>
         <property name="text">
-         <string>Sustituir Tarjeta</string>
+         <string>Registro Empleados</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -457,7 +683,7 @@ border-radius: 10px;</string>
          <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeType">
-         <enum>QSizePolicy::Expanding</enum>
+         <enum>QSizePolicy::Fixed</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -469,501 +695,8 @@ border-radius: 10px;</string>
       </item>
      </layout>
     </item>
-    <item row="4" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <spacer name="espacio7">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QLabel" name="nombre">
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color:#245e91;</string>
-        </property>
-        <property name="text">
-         <string>Nombre</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTextBrowser" name="textonombre">
-        <property name="maximumSize">
-         <size>
-          <width>300</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"> background-color: white;
-    border: 3px solid #B7DDF5;
-    color: #2e3a46;
-border-radius: 10px;</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="curp">
-        <property name="maximumSize">
-         <size>
-          <width>600</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color:#245e91;</string>
-        </property>
-        <property name="text">
-         <string>Curp</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="textocurp">
-        <property name="maximumSize">
-         <size>
-          <width>600</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color:#4b5560;</string>
-        </property>
-        <property name="text">
-         <string>Curp</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="fechanacimiento">
-        <property name="maximumSize">
-         <size>
-          <width>600</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color:#245e91;</string>
-        </property>
-        <property name="text">
-         <string>Fecha de Nacimiento</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="textofecha">
-        <property name="maximumSize">
-         <size>
-          <width>600</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color:#4b5560;</string>
-        </property>
-        <property name="text">
-         <string>fecha de nacimiento</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="uid">
-        <property name="maximumSize">
-         <size>
-          <width>600</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color:#245e91;</string>
-        </property>
-        <property name="text">
-         <string>UID</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="textouid">
-        <property name="maximumSize">
-         <size>
-          <width>600</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color:#4b5560;</string>
-        </property>
-        <property name="text">
-         <string>uid</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="tipotarjeta">
-        <property name="maximumSize">
-         <size>
-          <width>600</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color:#245e91;</string>
-        </property>
-        <property name="text">
-         <string>Tipo de Tarjeta</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="textotipo">
-        <property name="maximumSize">
-         <size>
-          <width>600</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color:#4b5560;</string>
-        </property>
-        <property name="text">
-         <string>Tipo de tarjeta</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="espacio8">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item row="4" column="1">
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
-       <widget class="QLabel" name="vigencia">
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color:#245e91;</string>
-        </property>
-        <property name="text">
-         <string>Vigencia</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTextBrowser" name="textovigencia">
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"> background-color: white;
-    border: 3px solid #B7DDF5;
-    color: #2e3a46;
-border-radius: 10px;</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCalendarWidget" name="calendario">
-        <property name="maximumSize">
-         <size>
-          <width>380</width>
-          <height>280</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QCalendarWidget QWidget#qt_calendar_navigationbar {
-    background-color: #0078D7;
-}
-
-QCalendarWidget QToolButton {
-    background-color: #0078D7;
-    color: white;
-    border: none;
-    font-weight: bold;
-}
-
-QCalendarWidget QToolButton#qt_calendar_monthbutton,
-QCalendarWidget QToolButton#qt_calendar_yearbutton {
-    color: white;
-}
-
-QCalendarWidget QSpinBox {
-    background-color: #0078D7;
-    color: white;
-    border: none;
-}
-
-QCalendarWidget QAbstractItemView {
-    background-color: white;
-    color: black;
-    selection-background-color: #E8E8E8;
-    selection-color: black;
-}</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="3" column="0" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <spacer name="espacio4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>80</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QLabel" name="buscar">
-        <property name="maximumSize">
-         <size>
-          <width>50</width>
-          <height>35</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color:#245e91;</string>
-        </property>
-        <property name="text">
-         <string>Buscar</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="buscador">
-        <property name="maximumSize">
-         <size>
-          <width>350</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"> background-color: white;
-    border: 3px solid #B7DDF5;
-    color: #2e3a46;
-border-radius: 10px;</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="espacio3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>80</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item row="5" column="0" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item>
-       <spacer name="espacio9">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>50</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="botonsustituir">
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: #f4c430;
-color: #3e3a32;
-border-radius: 10px;</string>
-        </property>
-        <property name="text">
-         <string>Sustituir</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="espacio10">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>50</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
+    <item row="3" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_2"/>
     </item>
    </layout>
   </widget>
