@@ -1,15 +1,30 @@
-from PySide6.QtCore import (QCoreApplication,QMetaObject, QSize, Qt)
-from PySide6.QtGui import (QFont)
-from PySide6.QtWidgets import (QFrame, QGridLayout, QHBoxLayout,
-    QLabel, QPushButton, QSizePolicy,
-    QSpacerItem, QVBoxLayout, QWidget)
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file 'empleado.ui'
+##
+## Created by: Qt User Interface Compiler version 6.11.0
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
+
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
+    QLabel, QMainWindow, QPushButton, QSizePolicy,
+    QSpacerItem, QToolButton, QVBoxLayout, QWidget)
 
 class EmpleadoWindow(object):
-    def setupUi(self, MainWindow):
-        if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(580, 470)
-        self.centralwidget = QWidget(MainWindow)
+    def setupUi(self, EmpleadoWindow):
+        if not EmpleadoWindow.objectName():
+            EmpleadoWindow.setObjectName(u"EmpleadoWindow")
+        EmpleadoWindow.resize(680, 680)
+        self.centralwidget = QWidget(EmpleadoWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.centralwidget.setStyleSheet(u"QWidget#centralwidget {\n"
 "    background-color: #EAF4FF;\n"
@@ -130,6 +145,41 @@ class EmpleadoWindow(object):
 "")
         self.gridLayout = QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(u"gridLayout")
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalSpacer_3 = QSpacerItem(500, 13, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_2.addItem(self.horizontalSpacer_3)
+
+        self.usuario = QToolButton(self.centralwidget)
+        self.usuario.setObjectName(u"usuario")
+        self.usuario.setMaximumSize(QSize(16777215, 40))
+        self.usuario.setStyleSheet(u"QToolButton {\n"
+"    background-color: transparent;\n"
+"    border: none;\n"
+"    color: #245E91;\n"
+"    padding: 0px;\n"
+"    margin: 0px;\n"
+"    font: 700 10pt \"Arial\";\n"
+"}\n"
+"\n"
+"QToolButton:hover {\n"
+"    color: #F4C430;\n"
+"    text-decoration: underline;\n"
+"}\n"
+"\n"
+"QToolButton:pressed {\n"
+"    background-color: #F4C430;\n"
+"    color: #245E91;\n"
+"    border-radius: 8px;\n"
+"    padding: 4px 8px;\n"
+"}")
+
+        self.horizontalLayout_2.addWidget(self.usuario)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout_2, 0, 0, 1, 1)
+
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.frameHeader = QFrame(self.centralwidget)
@@ -174,57 +224,77 @@ class EmpleadoWindow(object):
 
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
+        self.label.setMaximumSize(QSize(16777215, 16777215))
         font = QFont()
         font.setFamilies([u"Arial"])
         font.setPointSize(18)
         font.setBold(True)
+        font.setItalic(False)
         self.label.setFont(font)
-        self.label.setMaximumSize(QSize(16777215, 16777215))
         self.label.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.label)
 
 
-        self.gridLayout.addLayout(self.verticalLayout, 0, 0, 1, 1)
+        self.gridLayout.addLayout(self.verticalLayout, 1, 0, 1, 1)
+
+        self.verticalLayout_4 = QVBoxLayout()
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+
+        self.gridLayout.addLayout(self.verticalLayout_4, 2, 0, 1, 1)
+
+        self.verticalLayout_6 = QVBoxLayout()
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+
+        self.gridLayout.addLayout(self.verticalLayout_6, 3, 0, 1, 1)
+
+        self.verticalLayout_3 = QVBoxLayout()
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+
+        self.gridLayout.addLayout(self.verticalLayout_3, 4, 0, 1, 1)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.espacio1 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.espacio1 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.horizontalLayout.addItem(self.espacio1)
 
         self.botonrecarga = QPushButton(self.centralwidget)
         self.botonrecarga.setObjectName(u"botonrecarga")
         font1 = QFont()
+        font1.setFamilies([u"Arial"])
         font1.setPointSize(12)
+        font1.setBold(True)
+        font1.setItalic(False)
         self.botonrecarga.setFont(font1)
 
         self.horizontalLayout.addWidget(self.botonrecarga)
 
-        self.espacio2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.espacio2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.horizontalLayout.addItem(self.espacio2)
 
 
-        self.gridLayout.addLayout(self.horizontalLayout, 1, 0, 1, 1)
+        self.gridLayout.addLayout(self.horizontalLayout, 5, 0, 1, 1)
 
-        MainWindow.setCentralWidget(self.centralwidget)
+        EmpleadoWindow.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(MainWindow)
+        self.retranslateUi(EmpleadoWindow)
 
-        QMetaObject.connectSlotsByName(MainWindow)
+        QMetaObject.connectSlotsByName(EmpleadoWindow)
     # setupUi
 
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"RUMSA | Empleado", None))
-        self.labelBrand.setText(QCoreApplication.translate("MainWindow", u"RUMSA", None))
-        self.labelCompany.setText(QCoreApplication.translate("MainWindow", u"Rutas Urbanas de Matehuala, S.A. de C.V.", None))
-        self.labelHeaderInfo.setText(QCoreApplication.translate("MainWindow", u"Rutas Urbanas de Matehuala", None))
-        self.labelEstadoConexion.setText(QCoreApplication.translate("MainWindow", u"\u25cf Conectando", None))
+    def retranslateUi(self, EmpleadoWindow):
+        EmpleadoWindow.setWindowTitle(QCoreApplication.translate("EmpleadoWindow", u"RUMSA | Empleado", None))
+        self.usuario.setText(QCoreApplication.translate("EmpleadoWindow", u"Usuario", None))
+        self.labelBrand.setText(QCoreApplication.translate("EmpleadoWindow", u"RUMSA", None))
+        self.labelCompany.setText(QCoreApplication.translate("EmpleadoWindow", u"Rutas Urbanas de Matehuala, S.A. de C.V.", None))
+        self.labelHeaderInfo.setText(QCoreApplication.translate("EmpleadoWindow", u"Rutas Urbanas de Matehuala", None))
 #if QT_CONFIG(tooltip)
-        self.labelEstadoConexion.setToolTip(QCoreApplication.translate("MainWindow", u"Este texto puede cambiar a: Conectando, Sin conexi\u00f3n, Sincronizando o Conectado.", None))
+        self.labelEstadoConexion.setToolTip(QCoreApplication.translate("EmpleadoWindow", u"Este texto puede cambiar a: Conectando, Sin conexi\u00f3n, Sincronizando o Conectado.", None))
 #endif // QT_CONFIG(tooltip)
-        self.label.setText(QCoreApplication.translate("MainWindow", u"Men\u00fa principal", None))
-        self.botonrecarga.setText(QCoreApplication.translate("MainWindow", u"Recargar", None))
+        self.labelEstadoConexion.setText(QCoreApplication.translate("EmpleadoWindow", u"\u25cf Conectando", None))
+        self.label.setText(QCoreApplication.translate("EmpleadoWindow", u"Men\u00fa principal", None))
+        self.botonrecarga.setText(QCoreApplication.translate("EmpleadoWindow", u"Recargar", None))
     # retranslateUi
 
