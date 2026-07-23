@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS pasajeros (
 
 CREATE TABLE IF NOT EXISTS usuarios (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    --nombre TEXT NOT NULL,
     username TEXT NOT NULL,
     password TEXT NOT NULL,
     role_id INTEGER NOT NULL,
@@ -80,19 +81,6 @@ INSERT OR IGNORE INTO usuarios (id, username, password, role_id) VALUES
 (1, 'admin', '1234', 1),
 (2, 'empleado', '1234', 2);
 
-
-<<<<<<< HEAD
---CREATE TABLEIF NOT EXISTS sync_queue (
---    id INTEGER PRIMARY KEY AUTOINCREMENT,
---    tabla TEXT NOT NULL,
---    accion TEXT NOT NULL,
---    registro_id TEXT,
---    payload_json TEXT NOT NULL, 
---    sincronizado INTEGER NOT NULL DEFAULT 0,
---    error TEXT,
---    created_at TEXT NOT NULL DEFAULT (datetime('now'))
---);
-=======
 CREATE TABLE IF NOT EXISTS sync_queue (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     operation_uuid TEXT NOT NULL UNIQUE,
@@ -108,4 +96,3 @@ CREATE TABLE IF NOT EXISTS sync_queue (
 
 CREATE INDEX IF NOT EXISTS idx_sync_queue_status_created_at
     ON sync_queue (status, created_at);
->>>>>>> 3b4dc0a666cd5a2194eed821832e1d14eae96219

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>AltaWindow</class>
+ <widget class="QMainWindow" name="AltaWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>652</width>
-    <height>657</height>
+    <width>680</width>
+    <height>680</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -131,8 +131,8 @@ QLabel#labelEstadoConexion {
 </string>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" colspan="2">
-     <layout class="QVBoxLayout" name="verticalLayout">
+    <item row="0" column="0" colspan="3">
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
       <item>
        <widget class="QPushButton" name="botonregresar">
         <property name="maximumSize">
@@ -155,6 +155,61 @@ QLabel#labelEstadoConexion {
         </property>
        </widget>
       </item>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>500</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QToolButton" name="usuario">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QToolButton {
+    background-color: transparent;
+    border: none;
+    color: #245E91;
+    padding: 0px;
+    margin: 0px;
+    font: 700 10pt &quot;Arial&quot;;
+}
+
+QToolButton:hover {
+    color: #F4C430;
+    text-decoration: underline;
+}
+
+QToolButton:pressed {
+    background-color: #F4C430;
+    color: #245E91;
+    border-radius: 8px;
+    padding: 4px 8px;
+}</string>
+        </property>
+        <property name="text">
+         <string>Usuario</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0" colspan="3">
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QFrame" name="frameHeader">
         <property name="frameShape">
@@ -225,12 +280,225 @@ QLabel#labelEstadoConexion {
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QLabel" name="mensajeInternet">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:red;</string>
+           </property>
+           <property name="text">
+            <string>Aviso</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
       </item>
      </layout>
     </item>
-    <item row="2" column="0">
+    <item row="2" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QComboBox" name="comboBox">
+        <property name="maximumSize">
+         <size>
+          <width>300</width>
+          <height>40</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Dar de Alta Tarjeta</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="2" rowspan="6">
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QLabel" name="otrosdatos">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <weight>87</weight>
+          <italic>false</italic>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Tipo de Tarjeta</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="normal">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Normal</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="preferencial">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Preferencial</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="vigencia">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <weight>87</weight>
+          <italic>false</italic>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Vigencia</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="textovigencia">
+        <property name="maximumSize">
+         <size>
+          <width>300</width>
+          <height>40</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCalendarWidget" name="calendario">
+        <property name="maximumSize">
+         <size>
+          <width>300</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="palette">
+         <palette>
+          <active/>
+          <inactive/>
+          <disabled/>
+         </palette>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QCalendarWidget QToolButton#qt_calendar_monthbutton {
+    color: white;
+}
+
+QCalendarWidget QToolButton#qt_calendar_yearbutton {
+    color: white;
+}</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="espacio5">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item row="3" column="0" colspan="2">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <spacer name="espacio3">
@@ -292,46 +560,157 @@ QLabel#labelEstadoConexion {
       </item>
      </layout>
     </item>
-    <item row="1" column="0" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item row="4" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
-       <spacer name="horizontalSpacer_2">
+       <spacer name="espacio7">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>40</width>
+          <width>10</width>
           <height>20</height>
          </size>
         </property>
        </spacer>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox">
+       <widget class="QLabel" name="label_2">
         <property name="maximumSize">
          <size>
-          <width>300</width>
+          <width>200</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="palette">
+         <palette>
+          <active>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="ButtonText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </active>
+          <inactive>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="ButtonText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </inactive>
+          <disabled>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>120</red>
+              <green>120</green>
+              <blue>120</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>120</red>
+              <green>120</green>
+              <blue>120</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="ButtonText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>120</red>
+              <green>120</green>
+              <blue>120</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </disabled>
+         </palette>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Curp</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="textocurp">
+        <property name="maximumSize">
+         <size>
+          <width>500</width>
           <height>40</height>
          </size>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Dar de Alta Tarjeta</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
+       <spacer name="espacio6">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>40</width>
+          <width>10</width>
           <height>20</height>
          </size>
         </property>
@@ -339,109 +718,337 @@ QLabel#labelEstadoConexion {
       </item>
      </layout>
     </item>
-    <item row="2" column="1">
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item row="5" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
-       <widget class="QLabel" name="otrosdatos">
+       <widget class="QLabel" name="curpstatus">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Curp</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="6" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <spacer name="espacio10">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>10</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_3">
         <property name="maximumSize">
          <size>
           <width>200</width>
           <height>20</height>
          </size>
         </property>
+        <property name="palette">
+         <palette>
+          <active>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="ButtonText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </active>
+          <inactive>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="ButtonText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </inactive>
+          <disabled>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>120</red>
+              <green>120</green>
+              <blue>120</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>120</red>
+              <green>120</green>
+              <blue>120</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="ButtonText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>120</red>
+              <green>120</green>
+              <blue>120</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </disabled>
+         </palette>
+        </property>
         <property name="font">
          <font>
           <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>87</weight>
-          <italic>false</italic>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
         <property name="text">
-         <string>Tipo de Tarjeta</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <string>Fecha Nacimineto</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="normal">
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>50</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Normal</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="preferencial">
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>50</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Preferencial</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="vigencia">
+       <widget class="QTextEdit" name="textofechanacimiento">
         <property name="maximumSize">
          <size>
-          <width>16777215</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>87</weight>
-          <italic>false</italic>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Vigencia</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTextEdit" name="textovigencia">
-        <property name="maximumSize">
-         <size>
-          <width>300</width>
+          <width>500</width>
           <height>40</height>
          </size>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCalendarWidget" name="calendario">
+       <widget class="QPushButton" name="pushButton">
         <property name="maximumSize">
          <size>
-          <width>300</width>
-          <height>16777215</height>
+          <width>40</width>
+          <height>40</height>
          </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../assets/calendario.png</normaloff>../assets/calendario.png</iconset>
         </property>
        </widget>
       </item>
       <item>
-       <spacer name="espacio5">
+       <spacer name="espacio9">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>10</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item row="7" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="palette">
+         <palette>
+          <active>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="ButtonText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </active>
+          <inactive>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="ButtonText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>36</red>
+              <green>94</green>
+              <blue>145</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </inactive>
+          <disabled>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>120</red>
+              <green>120</green>
+              <blue>120</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>120</red>
+              <green>120</green>
+              <blue>120</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="ButtonText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>120</red>
+              <green>120</green>
+              <blue>120</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </disabled>
+         </palette>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Foto</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="fotoimagen">
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>200</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>foto imagen</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="7" column="1">
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <spacer name="espacio11">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -450,15 +1057,229 @@ QLabel#labelEstadoConexion {
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>20</width>
-          <height>20</height>
+          <width>10</width>
+          <height>25</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="botonsubir">
+        <property name="maximumSize">
+         <size>
+          <width>120</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Seleccionar</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="botontomar">
+        <property name="maximumSize">
+         <size>
+          <width>120</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="palette">
+         <palette>
+          <active>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>62</red>
+              <green>58</green>
+              <blue>50</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Button">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>244</red>
+              <green>196</green>
+              <blue>48</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>62</red>
+              <green>58</green>
+              <blue>50</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="ButtonText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>62</red>
+              <green>58</green>
+              <blue>50</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Base">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>244</red>
+              <green>196</green>
+              <blue>48</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Window">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>244</red>
+              <green>196</green>
+              <blue>48</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </active>
+          <inactive>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>62</red>
+              <green>58</green>
+              <blue>50</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Button">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>244</red>
+              <green>196</green>
+              <blue>48</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>62</red>
+              <green>58</green>
+              <blue>50</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="ButtonText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>62</red>
+              <green>58</green>
+              <blue>50</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Base">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>244</red>
+              <green>196</green>
+              <blue>48</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Window">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>244</red>
+              <green>196</green>
+              <blue>48</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </inactive>
+          <disabled>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>62</red>
+              <green>58</green>
+              <blue>50</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Button">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>244</red>
+              <green>196</green>
+              <blue>48</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>62</red>
+              <green>58</green>
+              <blue>50</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="ButtonText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>62</red>
+              <green>58</green>
+              <blue>50</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Base">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>244</red>
+              <green>196</green>
+              <blue>48</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Window">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>244</red>
+              <green>196</green>
+              <blue>48</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </disabled>
+         </palette>
+        </property>
+        <property name="text">
+         <string>Cancelar</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="espacio12">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>10</width>
+          <height>25</height>
          </size>
         </property>
        </spacer>
       </item>
      </layout>
     </item>
-    <item row="4" column="0" colspan="2">
+    <item row="8" column="0" colspan="3">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <spacer name="espacio1">

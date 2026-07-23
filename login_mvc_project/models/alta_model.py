@@ -1,33 +1,98 @@
 from datetime import datetime
 
+import requests
+
 from core.database import get_connection
 from core.sync_queue import enqueue_sync_event
+from core.sync_config import (
+    SYNC_API_BASE_URL,
+    SYNC_API_TOKEN,
+    SYNC_CONNECT_TIMEOUT_SECONDS,
+    SYNC_READ_TIMEOUT_SECONDS,
+)
 
 
 class AltaModel:
+    def normalizar_curp(self, curp: str) -> str:
+        return (curp or "").strip().upper()
+
+    def buscar_curp_local(self, curp: str):
+        curp = self.normalizar_curp(curp)
+
+        if not curp or curp == "-":
+            return None
+
+        with get_connection() as connection:
+            return connection.execute(
+                """
+                SELECT 
+                    p.id,
+                    p.nombre,
+                    p.curp,
+                    t.uid
+                FROM pasajeros p
+                LEFT JOIN tarjetas t ON t.pasajero_id = p.id
+                WHERE UPPER(TRIM(p.curp)) = ?
+                LIMIT 1
+                """,
+                (curp,),
+            ).fetchone()
+
+    def buscar_curp_servidor(self, curp: str):
+        curp = self.normalizar_curp(curp)
+
+        if not curp or curp == "-":
+            return None
+
+        response = requests.get(
+            f"{SYNC_API_BASE_URL.rstrip('/')}/api/pasajeros/existe-curp",
+            params={"curp": curp},
+            headers={
+                "Accept": "application/json",
+                "Authorization": f"Bearer {SYNC_API_TOKEN}",
+                "X-Desktop-Sync-Token": SYNC_API_TOKEN,
+            },
+            timeout=(SYNC_CONNECT_TIMEOUT_SECONDS, SYNC_READ_TIMEOUT_SECONDS),
+        )
+
+        response.raise_for_status()
+        data = response.json()
+
+        if data.get("exists"):
+            return data.get("pasajero") or {"curp": curp}
+
+        return None
+
     def guardar_alta_local(
         self,
         uid: str,
         nombre_pasajero: str,
         tipo: str,
         vigencia: str,
-        curp: str | None = None,
-        foto: str | None = None,
-        fecha_nacimiento: str | None = None,
+        curp: str = "",
+        fecha_nacimiento="",
+        foto: str = ""
     ):
+        curp = self.normalizar_curp(curp)
+
+        if not curp or curp == "-":
+            raise ValueError("Captura la CURP.")
+
+        curp_existe = self.buscar_curp_local(curp)
+        if curp_existe:
+            raise ValueError(
+                f"La CURP {curp} ya existe en la base local. "
+               
+            )
+
         tipo_tarjeta_id = 2 if tipo == "EU" else 1
         nombre_final = (nombre_pasajero or "").strip()
+
         if not nombre_final:
             nombre_final = f"Tarjeta {uid[-4:]}"
 
-        documento_auto = f"AUTO-{uid}"
+        documento_auto = "-"
         created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-<<<<<<< HEAD
-        curp_final = (curp or "").strip() or None
-        foto_final = (foto or "").strip() or None
-        fecha_nacimiento_final = (fecha_nacimiento or "").strip() or None
-=======
->>>>>>> 3b4dc0a666cd5a2194eed821832e1d14eae96219
 
         with get_connection() as connection:
             tarjeta = connection.execute(
@@ -44,29 +109,19 @@ class AltaModel:
                 connection.execute(
                     """
                     UPDATE pasajeros
-<<<<<<< HEAD
-                    SET nombre = ?,
-                        documento = ?,
-                        curp = ?,
-                        foto = ?,
-                        fecha_nacimiento = ?
+                    SET nombre = ?, documento = ?, curp = ?, foto = ?, fecha_nacimiento = ?
                     WHERE id = ?
                     """,
                     (
                         nombre_final,
                         documento_auto,
-                        curp_final,
-                        foto_final,
-                        fecha_nacimiento_final,
+                        curp,
+                        foto,
+                        fecha_nacimiento,
                         tarjeta["pasajero_id"],
                     ),
-=======
-                    SET nombre = ?, documento = ?
-                    WHERE id = ?
-                    """,
-                    (nombre_final, documento_auto, tarjeta["pasajero_id"]),
->>>>>>> 3b4dc0a666cd5a2194eed821832e1d14eae96219
                 )
+
                 connection.execute(
                     """
                     UPDATE tarjetas
@@ -75,28 +130,24 @@ class AltaModel:
                     """,
                     (0.0, tipo_tarjeta_id, vigencia, tarjeta["id"]),
                 )
+
                 tarjeta_id = tarjeta["id"]
+
             else:
                 cursor_pasajero = connection.execute(
                     """
-<<<<<<< HEAD
                     INSERT INTO pasajeros (nombre, documento, curp, foto, fecha_nacimiento)
                     VALUES (?, ?, ?, ?, ?)
                     """,
                     (
                         nombre_final,
                         documento_auto,
-                        curp_final,
-                        foto_final,
-                        fecha_nacimiento_final,
+                        curp,
+                        foto,
+                        fecha_nacimiento,
                     ),
-=======
-                    INSERT INTO pasajeros (nombre, documento)
-                    VALUES (?, ?)
-                    """,
-                    (nombre_final, documento_auto),
->>>>>>> 3b4dc0a666cd5a2194eed821832e1d14eae96219
                 )
+
                 pasajero_id = cursor_pasajero.lastrowid
 
                 cursor_tarjeta = connection.execute(
@@ -106,6 +157,7 @@ class AltaModel:
                     """,
                     (uid, 0.0, tipo_tarjeta_id, pasajero_id, vigencia),
                 )
+
                 tarjeta_id = cursor_tarjeta.lastrowid
 
             enqueue_sync_event(
@@ -117,12 +169,9 @@ class AltaModel:
                     "saldo": 0.0,
                     "nombre_pasajero": nombre_final,
                     "documento": documento_auto,
-<<<<<<< HEAD
-                    "curp": curp_final,
-                    "foto": foto_final,
-                    "fecha_nacimiento": fecha_nacimiento_final,
-=======
->>>>>>> 3b4dc0a666cd5a2194eed821832e1d14eae96219
+                    "curp": curp,
+                    "foto": foto,
+                    "fecha_nacimiento": fecha_nacimiento,
                     "tipo_codigo_local": tipo,
                     "vigencia": vigencia,
                     "local_created_at": created_at,

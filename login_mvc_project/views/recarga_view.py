@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file 'recarga.ui'
+##
+## Created by: Qt User Interface Compiler version 6.11.0
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
+
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
@@ -7,15 +17,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
     QHBoxLayout, QLabel, QLineEdit, QMainWindow,
-    QPushButton, QSizePolicy, QSpacerItem, QVBoxLayout,
-    QWidget)
+    QPushButton, QSizePolicy, QSpacerItem, QToolButton,
+    QVBoxLayout, QWidget)
 
 class RecargaWindow(object):
-    def setupUi(self, MainWindow):
-        if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(506, 443)
-        self.centralwidget = QWidget(MainWindow)
+    def setupUi(self, RecargaWindow):
+        if not RecargaWindow.objectName():
+            RecargaWindow.setObjectName(u"RecargaWindow")
+        RecargaWindow.resize(680, 680)
+        self.centralwidget = QWidget(RecargaWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.centralwidget.setStyleSheet(u"QWidget#centralwidget {\n"
 "    background-color: #EAF4FF;\n"
@@ -136,32 +146,8 @@ class RecargaWindow(object):
 "")
         self.gridLayout = QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.horizontalLayout_4 = QHBoxLayout()
-        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_4.addItem(self.horizontalSpacer_4)
-
-        self.comboBox = QComboBox(self.centralwidget)
-        self.comboBox.setObjectName(u"comboBox")
-        self.comboBox.setMaximumSize(QSize(300, 40))
-
-        self.horizontalLayout_4.addWidget(self.comboBox)
-
-        self.label = QLabel(self.centralwidget)
-        self.label.setObjectName(u"label")
-
-        self.horizontalLayout_4.addWidget(self.label)
-
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_4.addItem(self.horizontalSpacer_3)
-
-
-        self.gridLayout.addLayout(self.horizontalLayout_4, 1, 0, 1, 3)
-
-        self.verticalLayout = QVBoxLayout()
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
         self.botonregresar = QPushButton(self.centralwidget)
         self.botonregresar.setObjectName(u"botonregresar")
         self.botonregresar.setMaximumSize(QSize(35, 30))
@@ -172,12 +158,43 @@ class RecargaWindow(object):
         font.setItalic(False)
         self.botonregresar.setFont(font)
 
-        self.verticalLayout.addWidget(self.botonregresar)
+        self.horizontalLayout_5.addWidget(self.botonregresar)
 
-        self.rumsaSpacer_recarga = QSpacerItem(20, 8, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        self.horizontalSpacer_3 = QSpacerItem(500, 13, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
-        self.verticalLayout.addItem(self.rumsaSpacer_recarga)
+        self.horizontalLayout_5.addItem(self.horizontalSpacer_3)
 
+        self.usuario = QToolButton(self.centralwidget)
+        self.usuario.setObjectName(u"usuario")
+        self.usuario.setMaximumSize(QSize(16777215, 40))
+        self.usuario.setStyleSheet(u"QToolButton {\n"
+"    background-color: transparent;\n"
+"    border: none;\n"
+"    color: #245E91;\n"
+"    padding: 0px;\n"
+"    margin: 0px;\n"
+"    font: 700 10pt \"Arial\";\n"
+"}\n"
+"\n"
+"QToolButton:hover {\n"
+"    color: #F4C430;\n"
+"    text-decoration: underline;\n"
+"}\n"
+"\n"
+"QToolButton:pressed {\n"
+"    background-color: #F4C430;\n"
+"    color: #245E91;\n"
+"    border-radius: 8px;\n"
+"    padding: 4px 8px;\n"
+"}")
+
+        self.horizontalLayout_5.addWidget(self.usuario)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout_5, 0, 0, 1, 2)
+
+        self.verticalLayout = QVBoxLayout()
+        self.verticalLayout.setObjectName(u"verticalLayout")
         self.frameHeader = QFrame(self.centralwidget)
         self.frameHeader.setObjectName(u"frameHeader")
         self.frameHeader.setFrameShape(QFrame.StyledPanel)
@@ -215,12 +232,110 @@ class RecargaWindow(object):
         self.verticalLayout.addWidget(self.frameHeader)
 
 
-        self.gridLayout.addLayout(self.verticalLayout, 0, 0, 1, 3)
+        self.gridLayout.addLayout(self.verticalLayout, 1, 0, 1, 2)
 
-        self.verticalLayout_5 = QVBoxLayout()
-        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.horizontalSpacer_4 = QSpacerItem(10, 0, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
-        self.gridLayout.addLayout(self.verticalLayout_5, 2, 0, 1, 1)
+        self.horizontalLayout_4.addItem(self.horizontalSpacer_4)
+
+        self.comboBox = QComboBox(self.centralwidget)
+        self.comboBox.setObjectName(u"comboBox")
+        self.comboBox.setMaximumSize(QSize(300, 40))
+
+        self.horizontalLayout_4.addWidget(self.comboBox)
+
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+
+        self.horizontalLayout_4.addWidget(self.label)
+
+        self.horizontalSpacer_5 = QSpacerItem(10, 10, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_4.addItem(self.horizontalSpacer_5)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout_4, 2, 0, 1, 1)
+
+        self.verticalLayout_3 = QVBoxLayout()
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setMaximumSize(QSize(50, 15))
+        palette = QPalette()
+        brush = QBrush(QColor(36, 94, 145, 255))
+        brush.setStyle(Qt.BrushStyle.SolidPattern)
+        palette.setBrush(QPalette.ColorGroup.Active, QPalette.ColorRole.WindowText, brush)
+        palette.setBrush(QPalette.ColorGroup.Active, QPalette.ColorRole.Text, brush)
+        palette.setBrush(QPalette.ColorGroup.Active, QPalette.ColorRole.ButtonText, brush)
+        palette.setBrush(QPalette.ColorGroup.Inactive, QPalette.ColorRole.WindowText, brush)
+        palette.setBrush(QPalette.ColorGroup.Inactive, QPalette.ColorRole.Text, brush)
+        palette.setBrush(QPalette.ColorGroup.Inactive, QPalette.ColorRole.ButtonText, brush)
+        brush1 = QBrush(QColor(120, 120, 120, 255))
+        brush1.setStyle(Qt.BrushStyle.SolidPattern)
+        palette.setBrush(QPalette.ColorGroup.Disabled, QPalette.ColorRole.WindowText, brush1)
+        palette.setBrush(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Text, brush1)
+        palette.setBrush(QPalette.ColorGroup.Disabled, QPalette.ColorRole.ButtonText, brush1)
+        self.label_2.setPalette(palette)
+        font1 = QFont()
+        font1.setFamilies([u"Arial"])
+        font1.setPointSize(10)
+        font1.setBold(True)
+        self.label_2.setFont(font1)
+
+        self.verticalLayout_3.addWidget(self.label_2)
+
+        self.listaoficina = QComboBox(self.centralwidget)
+        self.listaoficina.setObjectName(u"listaoficina")
+        self.listaoficina.setMaximumSize(QSize(300, 35))
+
+        self.verticalLayout_3.addWidget(self.listaoficina)
+
+
+        self.gridLayout.addLayout(self.verticalLayout_3, 2, 1, 1, 1)
+
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.espacio2 = QSpacerItem(10, 10, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout.addItem(self.espacio2)
+
+        self.saldo = QLabel(self.centralwidget)
+        self.saldo.setObjectName(u"saldo")
+        self.saldo.setFont(font)
+
+        self.horizontalLayout.addWidget(self.saldo)
+
+        self.signopeso = QLabel(self.centralwidget)
+        self.signopeso.setObjectName(u"signopeso")
+        self.signopeso.setMaximumSize(QSize(15, 16777215))
+        font2 = QFont()
+        font2.setFamilies([u"Arial"])
+        font2.setPointSize(16)
+        font2.setBold(True)
+        font2.setItalic(False)
+        self.signopeso.setFont(font2)
+
+        self.horizontalLayout.addWidget(self.signopeso)
+
+        self.texto1 = QLabel(self.centralwidget)
+        self.texto1.setObjectName(u"texto1")
+        font3 = QFont()
+        font3.setFamilies([u"Arial"])
+        font3.setPointSize(10)
+        font3.setBold(False)
+        font3.setItalic(False)
+        self.texto1.setFont(font3)
+
+        self.horizontalLayout.addWidget(self.texto1)
+
+        self.espacio1 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout.addItem(self.espacio1)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout, 3, 0, 1, 1)
 
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
@@ -247,12 +362,7 @@ class RecargaWindow(object):
         self.texto4 = QLabel(self.centralwidget)
         self.texto4.setObjectName(u"texto4")
         self.texto4.setMaximumSize(QSize(200, 20))
-        font1 = QFont()
-        font1.setFamilies([u"Arial"])
-        font1.setPointSize(10)
-        font1.setBold(False)
-        font1.setItalic(False)
-        self.texto4.setFont(font1)
+        self.texto4.setFont(font3)
         self.texto4.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_2.addWidget(self.texto4)
@@ -268,7 +378,7 @@ class RecargaWindow(object):
         self.texto5 = QLabel(self.centralwidget)
         self.texto5.setObjectName(u"texto5")
         self.texto5.setMaximumSize(QSize(200, 20))
-        self.texto5.setFont(font1)
+        self.texto5.setFont(font3)
         self.texto5.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_2.addWidget(self.texto5)
@@ -284,13 +394,13 @@ class RecargaWindow(object):
         self.texto6 = QLabel(self.centralwidget)
         self.texto6.setObjectName(u"texto6")
         self.texto6.setMaximumSize(QSize(200, 20))
-        self.texto6.setFont(font1)
+        self.texto6.setFont(font3)
         self.texto6.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_2.addWidget(self.texto6)
 
 
-        self.gridLayout.addLayout(self.verticalLayout_2, 2, 1, 5, 2)
+        self.gridLayout.addLayout(self.verticalLayout_2, 3, 1, 2, 1)
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
@@ -300,11 +410,6 @@ class RecargaWindow(object):
 
         self.signopeso3 = QLabel(self.centralwidget)
         self.signopeso3.setObjectName(u"signopeso3")
-        font2 = QFont()
-        font2.setFamilies([u"Arial"])
-        font2.setPointSize(16)
-        font2.setBold(True)
-        font2.setItalic(False)
         self.signopeso3.setFont(font2)
 
         self.horizontalLayout_3.addWidget(self.signopeso3)
@@ -317,77 +422,27 @@ class RecargaWindow(object):
 
         self.horizontalLayout_3.addWidget(self.lineEdit)
 
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer)
 
         self.botonrecargar = QPushButton(self.centralwidget)
         self.botonrecargar.setObjectName(u"botonrecargar")
-        font3 = QFont()
-        font3.setFamilies([u"Arial"])
-        font3.setPointSize(11)
-        font3.setBold(True)
-        font3.setItalic(False)
-        self.botonrecargar.setFont(font3)
+        font4 = QFont()
+        font4.setFamilies([u"Arial"])
+        font4.setPointSize(11)
+        font4.setBold(True)
+        font4.setItalic(False)
+        self.botonrecargar.setFont(font4)
 
         self.horizontalLayout_3.addWidget(self.botonrecargar)
 
-        self.espacio3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.espacio3 = QSpacerItem(13, 13, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_3.addItem(self.espacio3)
 
 
         self.gridLayout.addLayout(self.horizontalLayout_3, 4, 0, 1, 1)
-
-        self.verticalLayout_6 = QVBoxLayout()
-        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-
-        self.gridLayout.addLayout(self.verticalLayout_6, 5, 0, 1, 1)
-
-        self.verticalLayout_4 = QVBoxLayout()
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.texto7 = QLabel(self.centralwidget)
-        self.texto7.setObjectName(u"texto7")
-        self.texto7.setMaximumSize(QSize(900, 20))
-        self.texto7.setFont(font1)
-        self.texto7.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_4.addWidget(self.texto7)
-
-
-        self.gridLayout.addLayout(self.verticalLayout_4, 7, 0, 1, 3)
-
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.espacio2 = QSpacerItem(10, 10, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout.addItem(self.espacio2)
-
-        self.saldo = QLabel(self.centralwidget)
-        self.saldo.setObjectName(u"saldo")
-        self.saldo.setFont(font)
-
-        self.horizontalLayout.addWidget(self.saldo)
-
-        self.signopeso = QLabel(self.centralwidget)
-        self.signopeso.setObjectName(u"signopeso")
-        self.signopeso.setMaximumSize(QSize(15, 16777215))
-        self.signopeso.setFont(font2)
-
-        self.horizontalLayout.addWidget(self.signopeso)
-
-        self.texto1 = QLabel(self.centralwidget)
-        self.texto1.setObjectName(u"texto1")
-        self.texto1.setFont(font1)
-
-        self.horizontalLayout.addWidget(self.texto1)
-
-        self.espacio1 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout.addItem(self.espacio1)
-
-
-        self.gridLayout.addLayout(self.horizontalLayout, 3, 0, 1, 1)
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
@@ -408,7 +463,7 @@ class RecargaWindow(object):
         self.texto2 = QLabel(self.centralwidget)
         self.texto2.setObjectName(u"texto2")
         self.texto2.setMaximumSize(QSize(110, 16777215))
-        self.texto2.setFont(font1)
+        self.texto2.setFont(font3)
 
         self.horizontalLayout_2.addWidget(self.texto2)
 
@@ -417,42 +472,57 @@ class RecargaWindow(object):
         self.horizontalLayout_2.addItem(self.horizontalSpacer_2)
 
 
-        self.gridLayout.addLayout(self.horizontalLayout_2, 6, 0, 1, 2)
+        self.gridLayout.addLayout(self.horizontalLayout_2, 5, 0, 1, 2)
 
-        MainWindow.setCentralWidget(self.centralwidget)
+        self.verticalLayout_4 = QVBoxLayout()
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.texto7 = QLabel(self.centralwidget)
+        self.texto7.setObjectName(u"texto7")
+        self.texto7.setMaximumSize(QSize(900, 20))
+        self.texto7.setFont(font3)
+        self.texto7.setAlignment(Qt.AlignCenter)
 
-        self.retranslateUi(MainWindow)
+        self.verticalLayout_4.addWidget(self.texto7)
 
-        QMetaObject.connectSlotsByName(MainWindow)
+
+        self.gridLayout.addLayout(self.verticalLayout_4, 6, 0, 1, 2)
+
+        RecargaWindow.setCentralWidget(self.centralwidget)
+
+        self.retranslateUi(RecargaWindow)
+
+        QMetaObject.connectSlotsByName(RecargaWindow)
     # setupUi
 
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"RUMSA | Recarga", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"Recargar Tarjeta", None))
-        self.botonregresar.setText(QCoreApplication.translate("MainWindow", u"\u21e6", None))
-        self.labelBrand.setText(QCoreApplication.translate("MainWindow", u"RUMSA", None))
-        self.labelCompany.setText(QCoreApplication.translate("MainWindow", u"Rutas Urbanas de Matehuala, S.A. de C.V.", None))
-        self.labelHeaderInfo.setText(QCoreApplication.translate("MainWindow", u"M\u00f3dulo de recargas", None))
+    def retranslateUi(self, RecargaWindow):
+        RecargaWindow.setWindowTitle(QCoreApplication.translate("RecargaWindow", u"RUMSA | Recarga", None))
+        self.botonregresar.setText(QCoreApplication.translate("RecargaWindow", u"\u21e6", None))
+        self.usuario.setText(QCoreApplication.translate("RecargaWindow", u"Usuario", None))
+        self.labelBrand.setText(QCoreApplication.translate("RecargaWindow", u"RUMSA", None))
+        self.labelCompany.setText(QCoreApplication.translate("RecargaWindow", u"Rutas Urbanas de Matehuala, S.A. de C.V.", None))
+        self.labelHeaderInfo.setText(QCoreApplication.translate("RecargaWindow", u"M\u00f3dulo de recargas", None))
 #if QT_CONFIG(tooltip)
-        self.labelEstadoConexion.setToolTip(QCoreApplication.translate("MainWindow", u"Este texto puede cambiar a: Conectando, Sin conexi\u00f3n, Sincronizando o Conectado.", None))
+        self.labelEstadoConexion.setToolTip(QCoreApplication.translate("RecargaWindow", u"Este texto puede cambiar a: Conectando, Sin conexi\u00f3n, Sincronizando o Conectado.", None))
 #endif // QT_CONFIG(tooltip)
-        self.labelEstadoConexion.setText(QCoreApplication.translate("MainWindow", u"\u25cf Conectando", None))
-        self.otrosdatos.setText(QCoreApplication.translate("MainWindow", u"Otros Datos", None))
-        self.uid.setText(QCoreApplication.translate("MainWindow", u"UID", None))
-        self.texto4.setText(QCoreApplication.translate("MainWindow", u"Texto", None))
-        self.nombre.setText(QCoreApplication.translate("MainWindow", u"Nombre", None))
-        self.texto5.setText(QCoreApplication.translate("MainWindow", u"Texto", None))
-        self.tarjeta.setText(QCoreApplication.translate("MainWindow", u"Tipo de Tarjeta", None))
-        self.texto6.setText(QCoreApplication.translate("MainWindow", u"Texto", None))
-        self.signopeso3.setText(QCoreApplication.translate("MainWindow", u"$", None))
+        self.labelEstadoConexion.setText(QCoreApplication.translate("RecargaWindow", u"\u25cf Conectando", None))
+        self.label.setText(QCoreApplication.translate("RecargaWindow", u"Recargar Tarjeta", None))
+        self.label_2.setText(QCoreApplication.translate("RecargaWindow", u"Oficina", None))
+        self.saldo.setText(QCoreApplication.translate("RecargaWindow", u"Saldo", None))
+        self.signopeso.setText(QCoreApplication.translate("RecargaWindow", u"$", None))
+        self.texto1.setText(QCoreApplication.translate("RecargaWindow", u"texto", None))
+        self.otrosdatos.setText(QCoreApplication.translate("RecargaWindow", u"Otros Datos", None))
+        self.uid.setText(QCoreApplication.translate("RecargaWindow", u"UID", None))
+        self.texto4.setText(QCoreApplication.translate("RecargaWindow", u"Texto", None))
+        self.nombre.setText(QCoreApplication.translate("RecargaWindow", u"Nombre", None))
+        self.texto5.setText(QCoreApplication.translate("RecargaWindow", u"Texto", None))
+        self.tarjeta.setText(QCoreApplication.translate("RecargaWindow", u"Tipo de Tarjeta", None))
+        self.texto6.setText(QCoreApplication.translate("RecargaWindow", u"Texto", None))
+        self.signopeso3.setText(QCoreApplication.translate("RecargaWindow", u"$", None))
         self.lineEdit.setInputMask("")
-        self.botonrecargar.setText(QCoreApplication.translate("MainWindow", u"Recargar", None))
-        self.texto7.setText(QCoreApplication.translate("MainWindow", u"Texto", None))
-        self.saldo.setText(QCoreApplication.translate("MainWindow", u"Saldo", None))
-        self.signopeso.setText(QCoreApplication.translate("MainWindow", u"$", None))
-        self.texto1.setText(QCoreApplication.translate("MainWindow", u"texto", None))
-        self.saldonuevo.setText(QCoreApplication.translate("MainWindow", u"Saldo Nuevo", None))
-        self.signopeso2.setText(QCoreApplication.translate("MainWindow", u"$", None))
-        self.texto2.setText(QCoreApplication.translate("MainWindow", u"texto", None))
+        self.botonrecargar.setText(QCoreApplication.translate("RecargaWindow", u"Recargar", None))
+        self.saldonuevo.setText(QCoreApplication.translate("RecargaWindow", u"Saldo Nuevo", None))
+        self.signopeso2.setText(QCoreApplication.translate("RecargaWindow", u"$", None))
+        self.texto2.setText(QCoreApplication.translate("RecargaWindow", u"texto", None))
+        self.texto7.setText(QCoreApplication.translate("RecargaWindow", u"Texto", None))
     # retranslateUi
 

@@ -1,56 +1,30 @@
-from PySide6.QtCore import (QCoreApplication,QMetaObject,QRect,
-    QSize, Qt)
-from PySide6.QtWidgets import ( QCheckBox, QFormLayout, QFrame,
-    QHBoxLayout, QLabel, QLineEdit,
-    QMainWindow, QMenuBar, QMessageBox, QPushButton, QSizePolicy, QSpacerItem,
-    QStatusBar, QVBoxLayout, QWidget)
+# -*- coding: utf-8 -*-
 
-from controllers.login_controller import LoginController
+################################################################################
+## Form generated from reading UI file 'login_qtdesigner.ui'
+##
+## Created by: Qt User Interface Compiler version 6.11.0
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
 
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QFormLayout, QFrame,
+    QHBoxLayout, QLabel, QLineEdit, QMainWindow,
+    QPushButton, QSizePolicy, QSpacerItem, QStatusBar,
+    QVBoxLayout, QWidget)
 
-class LoginWindow(QMainWindow):
-    def __init__(self, controller=None):
-        super().__init__()
-        self.controller = controller
-        self.login_controller = LoginController()
-
-        self.setupUi(self)
-        self.pushButtonLogin.clicked.connect(self.login)
-        self.pushButtonCancel.clicked.connect(self.close)
-        self.pushButtonForgot.clicked.connect(self.forgot_password)
-        self.lineEditUser.returnPressed.connect(self.lineEditPassword.setFocus)
-        self.lineEditPassword.returnPressed.connect(self.login)
-
-    def login(self):
-        username = self.lineEditUser.text().strip()
-        password = self.lineEditPassword.text().strip()
-
-        ok, message = self.login_controller.authenticate(username, password)
-        if not ok:
-            QMessageBox.warning(self, "Login", message)
-            return
-
-        role = self.login_controller.get_role(username)
-        if not role:
-            QMessageBox.warning(self, "Login", "El usuario no tiene rol asignado.")
-            return
-
-        if self.controller is not None:
-            self.controller.show_window_by_role(username, role)
-        else:
-            QMessageBox.information(self, "Login", "Login correcto.")
-
-    def forgot_password(self):
-        QMessageBox.information(
-            self,
-            "Recuperacion",
-            "Aqui puedes agregar la logica de recuperacion de contrasena.",
-        )
-
+class LoginWindow(object):
     def setupUi(self, LoginWindow):
         if not LoginWindow.objectName():
             LoginWindow.setObjectName(u"LoginWindow")
-        LoginWindow.resize(560, 430)
+        LoginWindow.resize(680, 680)
         self.centralwidget = QWidget(LoginWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.centralwidget.setStyleSheet(u"QWidget#centralwidget {\n"
@@ -291,10 +265,6 @@ class LoginWindow(QMainWindow):
         self.verticalLayout_main.addItem(self.verticalSpacerBottom)
 
         LoginWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(LoginWindow)
-        self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 560, 22))
-        LoginWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(LoginWindow)
         self.statusbar.setObjectName(u"statusbar")
         LoginWindow.setStatusBar(self.statusbar)
