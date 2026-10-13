@@ -237,8 +237,8 @@ class AppController:
         ui.pushButtonForgot.clicked.connect(
             lambda: QMessageBox.information(
                 self.current_window,
-                "Recuperar contrasena",
-                "Contacta al administrador para recuperar tu contrasena.",
+                "Recuperar contraseña",
+                "Contacta al administrador para recuperar tu contraseña.",
             )
         )
         ui.lineEditPassword.returnPressed.connect(self._ejecutar_login)
@@ -743,16 +743,45 @@ class AppController:
             nuevo_saldo = int(nuevo_saldo_centavos) / 100
             monto = self.monto_pendiente_centavos / 100
 
-            self.recarga_model.guardar_recarga_flexible(
-                uid=uid,
-                username=self.current_username,
-                monto=monto,
-                nuevo_saldo=nuevo_saldo,
-                nombre_pasajero=self.nombre_actual,
-                oficina=self.oficina_recarga_actual,
-                referencia=f"Folio: {folio}"
-            )
-            self._sincronizar_pendientes()
+            try:
+                self.recarga_model.guardar_recarga_flexible(
+                    uid=uid,
+                    username=self.current_username,
+                    monto=monto,
+                    nuevo_saldo=nuevo_saldo,
+                    nombre_pasajero=self.nombre_actual,
+                    oficina=self.oficina_recarga_actual,
+                    referencia=f"Folio: {folio}"
+                )
+
+            except Exception as error:
+                print(f"[RECARGA] ERROR AL GUARDAR EN SQLITE: {error}")
+                raise
+
+            print(f"[RECARGA] Guardada localmente: UID={uid}")
+            from core.database import DATABASE_PATH, get_connection
+
+            print(f"[RECARGA] BASE REAL: {DATABASE_PATH.resolve()}")
+
+            with get_connection() as conn:
+                recargas = conn.execute(
+                    "SELECT COUNT(*) FROM recargas"
+                ).fetchone()[0]
+
+                pendientes = conn.execute(
+                    """
+                    SELECT COUNT(*) FROM sync_queue
+                    WHERE event_type = 'recarga_tarjeta'
+                    AND status IN ('pending', 'error')
+                    """
+                ).fetchone()[0]
+
+            print(f"[RECARGA] Total guardadas: {recargas}")
+            print(f"[RECARGA] Pendientes de subir: {pendientes}")
+            print(f"[RECARGA] Monto: {monto}")
+            print(f"[RECARGA] Saldo nuevo: {nuevo_saldo}")
+
+            QTimer.singleShot(0, self._sincronizar_pendientes)
 
             self.saldo_actual_centavos = int(nuevo_saldo_centavos)
             ui.texto1.setText(f"{nuevo_saldo:.2f}")

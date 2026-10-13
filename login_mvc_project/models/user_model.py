@@ -41,12 +41,12 @@ class UserModel:
         password = password.strip()
 
         if not username or not password:
-            return False, "Debes capturar usuario y contrasena."
+            return False, "Debes capturar usuario y contraseña."
 
         if self.password_matches(username, password):
             return True, "Login correcto."
 
-        return False, "Usuario o contrasena incorrectos."
+        return False, "Usuario o contraseña incorrectos."
     
     def get_role(self, username: str) -> str | None:
         username = username.strip()
