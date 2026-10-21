@@ -143,13 +143,17 @@ class SustituirModel:
         nueva_vigencia: str,
         nombre_pasajero: str = "",
         tipo_codigo_local: str | None = None,
+        saldo_transferido_centavos: int,
     ):
         payload = {
             "uid_anterior": (uid_anterior or "").strip().upper(),
             "uid_nueva": (uid_nueva or "").strip().upper(),
             "nueva_vigencia": (nueva_vigencia or "").strip(),
             "nombre_pasajero": (nombre_pasajero or "").strip(),
-            "tipo_codigo_local": (tipo_codigo_local or "NO").strip().upper(),
+            "tipo_codigo_local": (
+                tipo_codigo_local or "NO"
+            ).strip().upper(),
+            "saldo_transferido_centavos": saldo_transferido_centavos,
         }
 
         response = requests.post(
@@ -158,10 +162,13 @@ class SustituirModel:
             headers=self._headers(),
             timeout=self.timeout,
         )
+
         self._raise_for_status_con_mensaje(response)
         data = response.json()
 
         if not data.get("ok", False):
-            raise ValueError(data.get("message", "No se pudo sustituir la tarjeta."))
+            raise ValueError(
+                data.get("message", "No se pudo sustituir la tarjeta.")
+            )
 
         return data

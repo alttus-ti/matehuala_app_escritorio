@@ -35,7 +35,20 @@ class RecargaModel:
 
         tarjeta_local = self._obtener_tarjeta_local_por_uid(uid)
 
-        tarjeta_servidor = self._obtener_tarjeta_servidor_por_uid(uid)
+        # Bloquear si se canceló localmente.
+        if tarjeta_local and int(tarjeta_local["en_lista_negra"] or 0) == 1:
+            return tarjeta_local
+
+        tarjeta_servidor = None
+
+        if self.base_url and self.token:
+            try:
+                tarjeta_servidor = self._consultar_tarjeta_servidor(uid)
+            except Exception as error:
+                print(
+                    f"[RECARGA] Error al consultar tarjeta: {error}"
+                )
+
         if tarjeta_servidor:
             return tarjeta_servidor
 

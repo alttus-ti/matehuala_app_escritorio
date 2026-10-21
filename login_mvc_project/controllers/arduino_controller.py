@@ -63,12 +63,39 @@ class ArduinoController:
             return linea
         return None
     
+
     def enviar_linea(self, texto: str):
-        if self.serial_connection is None or not self.serial_connection.is_open:
+        import time
+
+        conexion = self.serial_connection
+
+        if conexion is None or not conexion.is_open:
             raise RuntimeError("No hay conexion serial abierta.")
-        
-        print(f"[ARDUINO] TX: {texto.strip()}")
-        self.serial_connection.write((texto.strip() + "\n").encode("utf-8"))
+
+        comando = texto.strip()
+        datos = (comando + "\n").encode("utf-8")
+
+        print(f"[ARDUINO] TX: {comando}")
+
+        # Una sola instrucción, enviada en fragmentos.
+        # El salto de línea solamente va al final.
+        tamano_fragmento = 24
+
+        for inicio in range(0, len(datos), tamano_fragmento):
+            fragmento = datos[inicio:inicio + tamano_fragmento]
+
+            enviados = conexion.write(fragmento)
+
+            if enviados != len(fragmento):
+                raise RuntimeError(
+                    "No se pudo enviar completo el comando al Arduino."
+                )
+
+            conexion.flush()
+
+            if inicio + tamano_fragmento < len(datos):
+                time.sleep(0.03)
+
         return True
         
     

@@ -1,7 +1,11 @@
 from pathlib import Path
 import shutil
 
-from PySide6.QtCore import QCoreApplication, QDate, QDateTime, QSize, QTimer, Qt, QSettings, QRectF
+from decimal import Decimal
+
+
+
+from PySide6.QtCore import QEventLoop, QCoreApplication, QDate, QDateTime, QSize, QTimer, Qt, QSettings, QRectF
 from PySide6.QtWidgets import (
     QAbstractItemView,
     QCalendarWidget,
@@ -16,6 +20,8 @@ from PySide6.QtWidgets import (
     QMenu,
     QToolButton,
     QLineEdit,
+    QApplication, 
+    QLabel
 
 )
 from datetime import datetime
@@ -103,7 +109,78 @@ class AppController:
         self.sustituir_pendiente = None
         
         
-        
+    def _mostrar_cargando(self, mensaje="Procesando..."):
+        if getattr(self, "_dialogo_cargando", None) is not None:
+            return
+
+        dialogo = QDialog(self.current_window)
+        dialogo.setWindowFlag(
+            Qt.WindowType.FramelessWindowHint,
+            True
+        )
+        dialogo.setWindowModality(Qt.WindowModality.WindowModal)
+        dialogo.setFixedSize(380, 150)
+
+        dialogo.reject = lambda: None
+
+        dialogo.setStyleSheet("""
+            QDialog, QLabel {
+                background-color: #FFFFFF;
+            }
+            QLabel {
+                color: #245E91;
+                font-size: 16px;
+                font-weight: bold;
+            }
+        """)
+
+        layout = QVBoxLayout(dialogo)
+
+        etiqueta = QLabel(mensaje)
+        etiqueta.setWordWrap(True)
+        etiqueta.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(etiqueta)
+
+        self._dialogo_cargando = dialogo
+
+        timer = QTimer(dialogo)
+        timer.setSingleShot(True)
+        timer.timeout.connect(self._cargando_tiempo_agotado)
+        self._timer_cargando = timer
+
+        dialogo.show()
+
+        QApplication.processEvents(
+            QEventLoop.ProcessEventsFlag.ExcludeUserInputEvents
+        )
+
+        if getattr(self, "_dialogo_cargando", None) is dialogo:
+            timer.start(60000)
+
+    def _cerrar_cargando(self):
+        timer = getattr(self, "_timer_cargando", None)
+        self._timer_cargando = None
+
+        if timer is not None:
+            timer.stop()
+
+        dialogo = getattr(self, "_dialogo_cargando", None)
+        self._dialogo_cargando = None
+
+        if dialogo is not None:
+            dialogo.done(0)
+            dialogo.deleteLater()
+
+    def _cargando_tiempo_agotado(self):
+        self._cerrar_cargando()
+
+        QMessageBox.warning(
+            self.current_window,
+            "Sin confirmación",
+            "La operación tardó más de lo esperado.\n\n"
+            "Esto no significa que se haya cancelado. "
+            "Revisa la tarjeta y los registros antes de repetirla."
+        )        
         
         
 
@@ -138,8 +215,16 @@ class AppController:
     ) -> str:
         limite_serial_seguro = 60
         prefijo = f"al,{uid},"
-        sufijo = f",{no_tarjeta},{id_tipo_tarjeta},{id_tarifa},{vigtarifa},{vigencia12}"
-        max_alias = max(1, limite_serial_seguro - len(prefijo) - len(sufijo))
+        sufijo = (
+            f",{no_tarjeta},{id_tipo_tarjeta},{id_tarifa},"
+            f"{vigtarifa},{vigencia12}"
+        )
+
+        max_alias = max(
+            1,
+            limite_serial_seguro - len(prefijo) - len(sufijo)
+        )
+
         return alias[:max_alias].strip()
 
     def _parsear_trama_saldo(self, linea: str):
@@ -632,6 +717,7 @@ class AppController:
             
 
     def _fallo_recarga(self, motivo: str, error: Optional[Exception] = None) -> None:
+        self._cerrar_cargando()
         if isinstance(self.current_ui, RecargaWindow):
             self.current_ui.texto7.setText("Fallo recarga")
             self.current_ui.texto7.setMaximumHeight(50)
@@ -817,6 +903,7 @@ class AppController:
             if tarjeta_db:
                 ui.texto6.setText(tarjeta_db["tipo_tarjeta"])
             self._actualizar_estado_vencimiento_tarjeta(tarjeta_db)
+            self._cerrar_cargando()
 
         except Exception as e:
             self._fallo_recarga(f"No se pudo procesar la respuesta de recarga: {linea}", e)
@@ -918,6 +1005,9 @@ class AppController:
 
         try:
             comando = f"rc,{self.uid_actual},{self.monto_pendiente_centavos}"
+
+        
+
             self.arduino.enviar_linea(comando)
             ui.texto7.setText("Enviando recarga...")
             ui.texto7.setMaximumHeight(40)
@@ -1260,9 +1350,9 @@ class AppController:
 
                 try:
                     uid = self.alta_pendiente["uid"]
-                    nombre = self.alta_pendiente.get(
-                        "alias_tarjeta",
+                    nombre = self._limpiar_alias_para_arduino(
                         self.alta_pendiente["nombre_pasajero"],
+                        max_len=24,
                     )
 
                     comando_nombre = f"nm,{uid},{nombre}"
@@ -1277,6 +1367,7 @@ class AppController:
                     self.alta_pendiente = None
 
                     if mostrar_errores:
+                        self._cerrar_cargando()
                         QMessageBox.critical(
                             self.current_window,
                             "Error",
@@ -1385,6 +1476,7 @@ class AppController:
                 self.alta_pendiente = None
 
                 if mostrar_errores:
+                    self._cerrar_cargando()
                     QMessageBox.warning(
                         self.current_window,
                         "Error",
@@ -1439,11 +1531,13 @@ class AppController:
             self.alta_pendiente = None
             self._sincronizar_pendientes()
             self._limpiar_forulario_alta()
+            self._cerrar_cargando()
             return True
 
         except Exception as e:
             print(f"[ALTA] Error al guardar alta en DB local: {e}")
             traceback.print_exception(type(e), e, e.__traceback__)
+            self._cerrar_cargando()
             QMessageBox.critical(
                 self.current_window,
                 "Error",
@@ -1632,8 +1726,23 @@ class AppController:
 
         
 
-        print("[ALTA] Enviando alta:", comando)
-        self.arduino.enviar_linea(comando)
+        self._mostrar_cargando(
+            "Dando de alta la tarjeta..."
+        )
+
+        try:
+            print("[ALTA] Enviando alta:", comando)
+            self.arduino.enviar_linea(comando)
+
+        except Exception as error:
+            self._cerrar_cargando()
+            self.alta_pendiente = None
+
+            QMessageBox.critical(
+                self.current_window,
+                "Alta",
+                f"No se pudo enviar el alta: {error}"
+            )
         
         
     # =========================
@@ -1795,7 +1904,8 @@ class AppController:
         if not motivo:
             QMessageBox.warning(self.current_window, "Error", "Captura el motivo de la baja.")
             return
-
+        
+        self._mostrar_cargando("Cancelando tarjeta...")
         try:
             tarjeta_id = self.cancelar_model.cancelar_tarjeta_flexible(
                 uid=self.uid_cancelar_actual,
@@ -1806,7 +1916,7 @@ class AppController:
             )
 
             ui.listanegra.setChecked(True)
-
+            self._cerrar_cargando()
             QMessageBox.information(
                 self.current_window,
                 "Cancelar",
@@ -1814,6 +1924,7 @@ class AppController:
             )
 
         except Exception as e:
+            self._cerrar_cargando()
             QMessageBox.critical(
                 self.current_window,
                 "Error",
@@ -1835,7 +1946,7 @@ class AppController:
             return
         
         nombre_capturado = ui.textonombre.toPlainText().strip()
-        
+        self._mostrar_cargando("Reactivando tarjeta...")
         try:
             self.cancelar_model.cancelar_tarjeta_flexible(
                 uid = self.uid_cancelar_actual,
@@ -1847,7 +1958,9 @@ class AppController:
             
             ui.listanegra.setChecked(False)
             ui.textomotivo.setPlainText("")
-            
+
+            self._cerrar_cargando()
+
             QMessageBox.information(
                 self.current_window,
                 "Lista negra",
@@ -1855,6 +1968,7 @@ class AppController:
             )
         
         except Exception as e:
+            self._cerrar_cargando()
             QMessageBox.critical(
                 self.current_window,
                 "Error",
@@ -2464,7 +2578,7 @@ class AppController:
                         continue
 
                     self.sustituir_pendiente = None
-
+                    self._cerrar_cargando()
                     if mostrar_errores:
                         QMessageBox.warning(
                             self.current_window,
@@ -2508,12 +2622,23 @@ class AppController:
     def _ejecutar_sustitucion(self) -> None:
         if not isinstance(self.current_ui, SustituirWindow):
             return
-
-        if not self.tarjeta_sustituir_seleccionada or not self.uid_sustituir_original:
+        
+        if (
+            not self.tarjeta_sustituir_seleccionada
+            or not self.uid_sustituir_original
+        ):
             QMessageBox.warning(
                 self.current_window,
-                'Error',
-                'Primero selecciona un pasajero del buscador.'
+                "Sustituir",
+                "Primero selecciona un pasajero del buscador."
+            )
+            return
+
+        if self.sustituir_pendiente:
+            QMessageBox.warning(
+                self.current_window,
+                "Sustitución pendiente",
+                "Ya existe una sustitución pendiente. "
             )
             return
 
@@ -2611,10 +2736,15 @@ class AppController:
                 'reintentos_alta': 0,
             }
 
+            self._mostrar_cargando(
+                "Sustituyendo tarjeta..."
+            )
+
             print('[SUSTITUIR] Enviando sustitucion:', comando)
             self.arduino.enviar_linea(comando)
 
         except Exception as e:
+            self._cerrar_cargando()
             self.sustituir_pendiente = None
             print(f'[SUSTITUIR] Error completo al enviar sustitucion: {e}')
             traceback.print_exception(type(e), e, e.__traceback__)
@@ -2624,38 +2754,158 @@ class AppController:
                 f'No se pudo enviar la sustitucion: {e}'
             )
 
+    def _esperar_saldo_sustitucion(self, uid: str, segundos: int = 20) -> int:
+        limite = time.monotonic() + segundos
+        uid = self._normalizar_uid(uid)
+
+        while time.monotonic() < limite:
+            linea = self.arduino.leer_linea()
+
+            if not linea:
+                time.sleep(0.05)
+                continue
+
+            linea = linea.strip()
+            print("[SUSTITUIR SALDO]", linea)
+
+            if linea.lower().startswith("sldo,"):
+                datos = self._parsear_trama_saldo(linea)
+
+                if not datos:
+                    continue
+
+                if self._normalizar_uid(datos["uid"]) != uid:
+                    raise ValueError(
+                        "Se detectó otra tarjeta durante la transferencia."
+                    )
+
+                saldo = int(datos["saldo_centavos"])
+
+                if saldo < 0:
+                    raise ValueError("El saldo leído no es válido.")
+
+                return saldo
+
+            if linea.lower().startswith("error"):
+                raise ValueError(f"Error del Arduino: {linea}")
+
+            if linea.lower() == "st":
+                raise ValueError(
+                    "Se retiró la tarjeta antes de verificar el saldo."
+                )
+
+        raise TimeoutError(
+            "No llegó la lectura del saldo. "
+            "Revisa la tarjeta nueva antes de repetir la operación."
+        )
+
     def _guardar_sustitucion_confirmada(self) -> bool:
-        if not self.sustituir_pendiente:
-            return True
+        pendiente = self.sustituir_pendiente
+
+        if not pendiente:
+            return False
+
+        if pendiente.get("transferencia_iniciada"):
+            return False
+
+        pendiente["transferencia_iniciada"] = True
+
+        timer = self.sustituir_timer
+        timer_activo = timer is not None and timer.isActive()
+
+        if timer_activo:
+            timer.stop()
 
         try:
-            payload = {
-                'uid_anterior': self.sustituir_pendiente['uid_anterior'],
-                'uid_nueva': self.sustituir_pendiente['uid_nueva'],
-                'nueva_vigencia': self.sustituir_pendiente['nueva_vigencia'],
-                'nombre_pasajero': self.sustituir_pendiente['nombre_pasajero'],
-                'tipo_codigo_local': self.sustituir_pendiente['tipo_codigo_local'],
-            }
+            uid_nueva = pendiente["uid_nueva"]
+            tarjeta = dict(self.tarjeta_sustituir_seleccionada)
 
-            self.sustituir_model.sustituir_tarjeta_servidor(**payload)
+            saldo_pesos = Decimal(str(tarjeta.get("saldo") or 0))
 
-            print(
-                '[SUSTITUIR] Sustitucion guardada en SERVIDOR '
-                f"UID_ANTERIOR={payload['uid_anterior']} UID_NUEVA={payload['uid_nueva']}"
+            if not saldo_pesos.is_finite() or saldo_pesos < 0:
+                raise ValueError("El saldo anterior no es válido.")
+
+            centavos_decimal = saldo_pesos * 100
+
+            if centavos_decimal != centavos_decimal.to_integral_value():
+                raise ValueError("El saldo tiene más de dos decimales.")
+
+            saldo_transferir = int(centavos_decimal)
+            pendiente["saldo_transferido_centavos"] = saldo_transferir
+
+            # El Arduino manda sldo automáticamente después del alta.
+            saldo_nueva = self._esperar_saldo_sustitucion(uid_nueva)
+
+            if saldo_nueva != 0:
+                raise ValueError(
+                    f"La tarjeta nueva tiene ${saldo_nueva / 100:.2f}. "
+                    "Debes usar una tarjeta con saldo $0. "
+                    "No se envió la transferencia."
+                )
+
+            if saldo_transferir > 0:
+                pendiente["fase"] = "verificando_transferencia"
+
+                # Enviar una sola vez: rc suma saldo.
+                comando = f"rc,{uid_nueva},{saldo_transferir}"
+                print("[SUSTITUIR] Enviando:", comando)
+                self.arduino.enviar_linea(comando)
+
+                saldo_confirmado = self._esperar_saldo_sustitucion(
+                    uid_nueva
+                )
+
+                if saldo_confirmado != saldo_transferir:
+                    raise ValueError(
+                        "El saldo físico no coincide. "
+                        f"Esperado: ${saldo_transferir / 100:.2f}. "
+                        f"Leído: ${saldo_confirmado / 100:.2f}. "
+                        "No repitas la transferencia."
+                    )
+
+            pendiente["fase"] = "saldo_confirmado"
+
+            self.sustituir_model.sustituir_tarjeta_servidor(
+                uid_anterior=pendiente["uid_anterior"],
+                uid_nueva=uid_nueva,
+                nueva_vigencia=pendiente["nueva_vigencia"],
+                nombre_pasajero=pendiente["nombre_pasajero"],
+                tipo_codigo_local=pendiente["tipo_codigo_local"],
+                saldo_transferido_centavos=saldo_transferir,
             )
 
             self.sustituir_pendiente = None
             return True
 
-        except Exception as e:
-            print(f'[SUSTITUIR] Error al guardar sustitucion en servidor: {e}')
-            traceback.print_exception(type(e), e, e.__traceback__)
+        except Exception as error:
+            print("[SUSTITUIR] Error:", error)
+
+            if pendiente.get("fase") not in (
+                "verificando_transferencia",
+                "saldo_confirmado",
+            ):
+                self.sustituir_pendiente = None
+
+            self._cerrar_cargando()
+
             QMessageBox.critical(
                 self.current_window,
-                'Error',
-                f'El Arduino confirmo la sustitucion, pero no se pudo guardar en el servidor: {e}'
+                "Sustitución incompleta",
+                f"{error}\n\n"
+                "Si ya se envió el saldo, puede estar grabado en la "
+                "tarjeta nueva aunque haya fallado el servidor. "
+                "Revisa ambos antes de repetir."
             )
             return False
+
+        finally:
+            self._cerrar_cargando()
+
+            if timer_activo and isinstance(
+                self.current_ui, SustituirWindow
+            ):
+                timer.start(300)
+
 
     def _limpiar_formulario_sustituir(self) -> None:
         if not isinstance(self.current_ui, SustituirWindow):
