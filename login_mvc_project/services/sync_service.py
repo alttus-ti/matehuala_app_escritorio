@@ -37,7 +37,23 @@ class SyncService:
 
         return int(row["total"] if row else 0)
 
+    def hay_internet(self) -> bool:
+        try:
+            response = requests.get(
+                "https://www.gstatic.com/generate_204",
+                timeout=3,
+                allow_redirects=False
+            )
+            return response.status_code == 204
+
+        except requests.RequestException:
+            return False
+        
     def ping(self) -> bool:
+        if not self.hay_internet():
+            print("[SYNC] Sin internet")
+            return False
+        
         if not self.base_url or not self.token:
             return False
 
@@ -51,6 +67,22 @@ class SyncService:
         return bool(data.get("ok", False))
 
     def sync_pending_once(self) -> dict[str, Any]:
+        pending_before = self.count_pending()
+
+        # Verificar internet antes de sincronizar
+        if not self.hay_internet():
+            print(f"[SYNC] Sin internet. Pendientes: {pending_before}")
+
+            return {
+                "state": "offline",
+                "pending_before": pending_before,
+                "pending_after": pending_before,
+                "synced_count": 0,
+                "error_count": 0,
+                "message": "Sin internet",
+            }
+
+        # Solo continuar si hay internet
         self._cleanup_synced_queue()
         pending_before = self.count_pending()
 
