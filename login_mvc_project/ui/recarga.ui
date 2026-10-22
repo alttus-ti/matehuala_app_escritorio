@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>RUMSA | Recarga</string>
+   <string>Recarga</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
@@ -237,7 +237,7 @@ QToolButton:pressed {
          <item>
           <widget class="QLabel" name="labelBrand">
            <property name="text">
-            <string>RUMSA</string>
+            <string>Trasporte</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -247,7 +247,7 @@ QToolButton:pressed {
          <item>
           <widget class="QLabel" name="labelCompany">
            <property name="text">
-            <string>Rutas Urbanas de Matehuala, S.A. de C.V.</string>
+            <string></string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>

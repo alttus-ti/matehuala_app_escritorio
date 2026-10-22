@@ -275,9 +275,9 @@ class LoginWindow(object):
     # setupUi
 
     def retranslateUi(self, LoginWindow):
-        LoginWindow.setWindowTitle(QCoreApplication.translate("LoginWindow", u"RUMSA | Iniciar sesi\u00f3n", None))
-        self.labelBrand.setText(QCoreApplication.translate("LoginWindow", u"RUMSA", None))
-        self.labelCompany.setText(QCoreApplication.translate("LoginWindow", u"Rutas Urbanas de Matehuala, S.A. de C.V.", None))
+        LoginWindow.setWindowTitle(QCoreApplication.translate("LoginWindow", u"Iniciar sesi\u00f3n", None))
+        self.labelBrand.setText(QCoreApplication.translate("LoginWindow", u"Trasporte", None))
+        self.labelCompany.setText(QCoreApplication.translate("LoginWindow", u"", None))
         self.labelWelcome.setText(QCoreApplication.translate("LoginWindow", u"Acceso al sistema", None))
         self.labelTitle.setText(QCoreApplication.translate("LoginWindow", u"Iniciar sesi\u00f3n", None))
         self.labelSubtitle.setText(QCoreApplication.translate("LoginWindow", u"Ingresa tus credenciales para continuar", None))

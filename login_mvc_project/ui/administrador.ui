@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>680</width>
+    <width>689</width>
     <height>680</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>RUMSA | Administrador</string>
+   <string>Administrador</string>
   </property>
   <property name="accessibleName">
    <string/>
@@ -168,7 +168,7 @@ QLabel#labelEstadoConexion {
         <property name="sizeHint" stdset="0">
          <size>
           <width>500</width>
-          <height>10</height>
+          <height>13</height>
          </size>
         </property>
        </spacer>
@@ -210,9 +210,6 @@ QToolButton:pressed {
       </item>
      </layout>
     </item>
-    <item row="1" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_4"/>
-    </item>
     <item row="2" column="0">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -242,7 +239,7 @@ QToolButton:pressed {
          <item>
           <widget class="QLabel" name="labelBrand">
            <property name="text">
-            <string>RUMSA</string>
+            <string>Trasporte</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -252,7 +249,7 @@ QToolButton:pressed {
          <item>
           <widget class="QLabel" name="labelCompany">
            <property name="text">
-            <string>Rutas Urbanas de Matehuala, S.A. de C.V.</string>
+            <string></string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -325,11 +322,14 @@ QToolButton:pressed {
       </item>
      </layout>
     </item>
-    <item row="3" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_3"/>
-    </item>
     <item row="4" column="0">
      <layout class="QVBoxLayout" name="verticalLayout_2"/>
+    </item>
+    <item row="1" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_4"/>
+    </item>
+    <item row="3" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_3"/>
     </item>
     <item row="5" column="0">
      <layout class="QGridLayout" name="gridLayout_2">
@@ -343,14 +343,14 @@ QToolButton:pressed {
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>10</width>
-          <height>10</height>
+          <width>13</width>
+          <height>13</height>
          </size>
         </property>
        </spacer>
       </item>
-      <item row="0" column="4">
-       <spacer name="verticalSpacer_5">
+      <item row="0" column="1">
+       <spacer name="verticalSpacer_8">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -364,35 +364,6 @@ QToolButton:pressed {
          </size>
         </property>
        </spacer>
-      </item>
-      <item row="2" column="4">
-       <spacer name="verticalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="4">
-       <widget class="QPushButton" name="botoncancelar">
-        <property name="minimumSize">
-         <size>
-          <width>152</width>
-          <height>66</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Cancelar</string>
-        </property>
-       </widget>
       </item>
       <item row="1" column="5">
        <spacer name="espacio2">
@@ -404,43 +375,14 @@ QToolButton:pressed {
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>10</width>
+          <width>13</width>
           <height>20</height>
          </size>
         </property>
        </spacer>
       </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="botonsustituir">
-        <property name="minimumSize">
-         <size>
-          <width>152</width>
-          <height>66</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Sustituir</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <spacer name="verticalSpacer_6">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="2" column="3">
-       <spacer name="verticalSpacer_3">
+      <item row="2" column="1">
+       <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -471,8 +413,24 @@ QToolButton:pressed {
         </property>
        </spacer>
       </item>
-      <item row="0" column="1">
-       <spacer name="verticalSpacer_8">
+      <item row="2" column="3">
+       <spacer name="verticalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="3">
+       <spacer name="verticalSpacer_6">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -503,21 +461,8 @@ QToolButton:pressed {
         </property>
        </spacer>
       </item>
-      <item row="1" column="3">
-       <widget class="QPushButton" name="botonrecarga">
-        <property name="minimumSize">
-         <size>
-          <width>152</width>
-          <height>66</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Recarga</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <spacer name="verticalSpacer">
+      <item row="2" column="4">
+       <spacer name="verticalSpacer_4">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -531,6 +476,61 @@ QToolButton:pressed {
          </size>
         </property>
        </spacer>
+      </item>
+      <item row="0" column="4">
+       <spacer name="verticalSpacer_5">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="4">
+       <widget class="QPushButton" name="botoncancelar">
+        <property name="minimumSize">
+         <size>
+          <width>152</width>
+          <height>66</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Cancelar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QPushButton" name="botonrecarga">
+        <property name="minimumSize">
+         <size>
+          <width>152</width>
+          <height>66</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Recarga</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="botonsustituir">
+        <property name="minimumSize">
+         <size>
+          <width>152</width>
+          <height>66</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Sustituir</string>
+        </property>
+       </widget>
       </item>
       <item row="1" column="1">
        <widget class="QPushButton" name="botonalta">

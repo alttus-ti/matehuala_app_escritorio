@@ -494,11 +494,11 @@ class CancelarWindow(object):
     # setupUi
 
     def retranslateUi(self, CancelarWindow):
-        CancelarWindow.setWindowTitle(QCoreApplication.translate("CancelarWindow", u"RUMA | Cancelar", None))
+        CancelarWindow.setWindowTitle(QCoreApplication.translate("CancelarWindow", u"Cancelar", None))
         self.botonregresar.setText(QCoreApplication.translate("CancelarWindow", u"\u21e6", None))
         self.usuario.setText(QCoreApplication.translate("CancelarWindow", u"Usuario", None))
-        self.labelBrand.setText(QCoreApplication.translate("CancelarWindow", u"RUMSA", None))
-        self.labelCompany.setText(QCoreApplication.translate("CancelarWindow", u"Rutas Urbanas de Matehuala, S.A. de C.V.", None))
+        self.labelBrand.setText(QCoreApplication.translate("CancelarWindow", u"Trasporte", None))
+        self.labelCompany.setText(QCoreApplication.translate("CancelarWindow", u"", None))
         self.labelHeaderInfo.setText(QCoreApplication.translate("CancelarWindow", u"M\u00f3dulo de cancelaci\u00f3n", None))
         self.labelEstadoConexion.setText(QCoreApplication.translate("CancelarWindow", u"\u25cf Conectando", None))
         self.textocancelar.setText(QCoreApplication.translate("CancelarWindow", u"Cancelar Tarjeta", None))

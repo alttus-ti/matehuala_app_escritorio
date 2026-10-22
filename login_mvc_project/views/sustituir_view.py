@@ -441,11 +441,11 @@ class SustituirWindow(object):
     # setupUi
 
     def retranslateUi(self, SustituirWindow):
-        SustituirWindow.setWindowTitle(QCoreApplication.translate("SustituirWindow", u"RUMSA | Sustituir Tarjeta", None))
+        SustituirWindow.setWindowTitle(QCoreApplication.translate("SustituirWindow", u"Sustituir Tarjeta", None))
         self.botonregresar.setText(QCoreApplication.translate("SustituirWindow", u"\u21e6", None))
         self.usuario.setText(QCoreApplication.translate("SustituirWindow", u"Usuario", None))
-        self.labelBrand.setText(QCoreApplication.translate("SustituirWindow", u"RUMSA", None))
-        self.labelCompany.setText(QCoreApplication.translate("SustituirWindow", u"Rutas Urbanas de Matehuala, S.A. de C.V.", None))
+        self.labelBrand.setText(QCoreApplication.translate("SustituirWindow", u"Trasporte", None))
+        self.labelCompany.setText(QCoreApplication.translate("SustituirWindow", u"", None))
         self.labelHeaderInfo.setText(QCoreApplication.translate("SustituirWindow", u"M\u00f3dulo de sustituci\u00f3n", None))
         self.labelEstadoConexion.setText(QCoreApplication.translate("SustituirWindow", u"\u25cf Conectando", None))
         self.sustituirtarjeta.setText(QCoreApplication.translate("SustituirWindow", u"Sustituir Tarjeta", None))

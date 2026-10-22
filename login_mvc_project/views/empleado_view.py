@@ -285,10 +285,10 @@ class EmpleadoWindow(object):
     # setupUi
 
     def retranslateUi(self, EmpleadoWindow):
-        EmpleadoWindow.setWindowTitle(QCoreApplication.translate("EmpleadoWindow", u"RUMSA | Empleado", None))
+        EmpleadoWindow.setWindowTitle(QCoreApplication.translate("EmpleadoWindow", u"Empleado", None))
         self.usuario.setText(QCoreApplication.translate("EmpleadoWindow", u"Usuario", None))
-        self.labelBrand.setText(QCoreApplication.translate("EmpleadoWindow", u"RUMSA", None))
-        self.labelCompany.setText(QCoreApplication.translate("EmpleadoWindow", u"Rutas Urbanas de Matehuala, S.A. de C.V.", None))
+        self.labelBrand.setText(QCoreApplication.translate("EmpleadoWindow", u"Trasporte", None))
+        self.labelCompany.setText(QCoreApplication.translate("EmpleadoWindow", u"", None))
         self.labelHeaderInfo.setText(QCoreApplication.translate("EmpleadoWindow", u"Rutas Urbanas de Matehuala", None))
 #if QT_CONFIG(tooltip)
         self.labelEstadoConexion.setToolTip(QCoreApplication.translate("EmpleadoWindow", u"Este texto puede cambiar a: Conectando, Sin conexi\u00f3n, Sincronizando o Conectado.", None))

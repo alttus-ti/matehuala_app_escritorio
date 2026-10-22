@@ -348,13 +348,13 @@ class AdminWindow(object):
     # setupUi
 
     def retranslateUi(self, AdminWindow):
-        AdminWindow.setWindowTitle(QCoreApplication.translate("AdminWindow", u"RUMSA | Administrador", None))
+        AdminWindow.setWindowTitle(QCoreApplication.translate("AdminWindow", u"Administrador", None))
 #if QT_CONFIG(accessibility)
         AdminWindow.setAccessibleName("")
 #endif // QT_CONFIG(accessibility)
         self.usuario.setText(QCoreApplication.translate("AdminWindow", u"Usuario", None))
-        self.labelBrand.setText(QCoreApplication.translate("AdminWindow", u"RUMSA", None))
-        self.labelCompany.setText(QCoreApplication.translate("AdminWindow", u"Rutas Urbanas de Matehuala, S.A. de C.V.", None))
+        self.labelBrand.setText(QCoreApplication.translate("AdminWindow", u"Trasporte", None))
+        self.labelCompany.setText(QCoreApplication.translate("AdminWindow", u"", None))
         self.labelHeaderInfo.setText(QCoreApplication.translate("AdminWindow", u"Rutas Urbanas de Matehuala", None))
 #if QT_CONFIG(tooltip)
         self.labelEstadoConexion.setToolTip(QCoreApplication.translate("AdminWindow", u"Este texto puede cambiar a: Conectando, Sin conexi\u00f3n, Sincronizando o Conectado.", None))

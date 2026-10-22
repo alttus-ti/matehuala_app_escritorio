@@ -495,11 +495,11 @@ class RecargaWindow(object):
     # setupUi
 
     def retranslateUi(self, RecargaWindow):
-        RecargaWindow.setWindowTitle(QCoreApplication.translate("RecargaWindow", u"RUMSA | Recarga", None))
+        RecargaWindow.setWindowTitle(QCoreApplication.translate("RecargaWindow", u"Recarga", None))
         self.botonregresar.setText(QCoreApplication.translate("RecargaWindow", u"\u21e6", None))
         self.usuario.setText(QCoreApplication.translate("RecargaWindow", u"Usuario", None))
-        self.labelBrand.setText(QCoreApplication.translate("RecargaWindow", u"RUMSA", None))
-        self.labelCompany.setText(QCoreApplication.translate("RecargaWindow", u"Rutas Urbanas de Matehuala, S.A. de C.V.", None))
+        self.labelBrand.setText(QCoreApplication.translate("RecargaWindow", u"Trasporte", None))
+        self.labelCompany.setText(QCoreApplication.translate("RecargaWindow", u"", None))
         self.labelHeaderInfo.setText(QCoreApplication.translate("RecargaWindow", u"M\u00f3dulo de recargas", None))
 #if QT_CONFIG(tooltip)
         self.labelEstadoConexion.setToolTip(QCoreApplication.translate("RecargaWindow", u"Este texto puede cambiar a: Conectando, Sin conexi\u00f3n, Sincronizando o Conectado.", None))
