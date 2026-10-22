@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>RUMA | Cancelar</string>
+   <string>Cancelar</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: #EAF4FF;</string>
@@ -899,7 +899,7 @@ QToolButton:pressed {
               <string notr="true">background-color: #D7ECFF;</string>
              </property>
              <property name="text">
-              <string>RUMSA</string>
+              <string>Trasporte</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1095,7 +1095,7 @@ font-weight: bold;
 background-color: #D7ECFF;</string>
              </property>
              <property name="text">
-              <string>Rutas Urbanas de Matehuala, S.A. de C.V.</string>
+              <string></string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>

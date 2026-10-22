@@ -334,8 +334,8 @@ class RegistroUsuarioWindow(object):
 
     def retranslateUi(self, RegistroUsuarioWindow):
         RegistroUsuarioWindow.setWindowTitle(QCoreApplication.translate("RegistroUsuarioWindow", u"MainWindow", None))
-        self.Rumsa.setText(QCoreApplication.translate("RegistroUsuarioWindow", u"RUMSA", None))
-        self.labelCompany.setText(QCoreApplication.translate("RegistroUsuarioWindow", u"Rutas Urbanas de Matehuala, S.A. de C.V.", None))
+        self.Rumsa.setText(QCoreApplication.translate("RegistroUsuarioWindow", u"Trasporte", None))
+        self.labelCompany.setText(QCoreApplication.translate("RegistroUsuarioWindow", u"", None))
         self.labelHeaderInfo.setText(QCoreApplication.translate("RegistroUsuarioWindow", u"M\u00f3dulo de Registro Empleados", None))
         self.labelEstadoConexion.setText(QCoreApplication.translate("RegistroUsuarioWindow", u"\u25cf Conectando", None))
         self.correo.setText(QCoreApplication.translate("RegistroUsuarioWindow", u"Correo", None))

@@ -575,11 +575,11 @@ class AltaWindow(object):
     # setupUi
 
     def retranslateUi(self, AltaWindow):
-        AltaWindow.setWindowTitle(QCoreApplication.translate("AltaWindow", u"RUMSA | Dar de alta", None))
+        AltaWindow.setWindowTitle(QCoreApplication.translate("AltaWindow", u"Dar de alta", None))
         self.botonregresar.setText(QCoreApplication.translate("AltaWindow", u"\u21e6", None))
         self.usuario.setText(QCoreApplication.translate("AltaWindow", u"Usuario", None))
-        self.labelBrand.setText(QCoreApplication.translate("AltaWindow", u"RUMSA", None))
-        self.labelCompany.setText(QCoreApplication.translate("AltaWindow", u"Rutas Urbanas de Matehuala, S.A. de C.V.", None))
+        self.labelBrand.setText(QCoreApplication.translate("AltaWindow", u"Trasporte", None))
+        self.labelCompany.setText(QCoreApplication.translate("AltaWindow", u"", None))
         self.labelHeaderInfo.setText(QCoreApplication.translate("AltaWindow", u"M\u00f3dulo de altas", None))
 #if QT_CONFIG(tooltip)
         self.labelEstadoConexion.setToolTip(QCoreApplication.translate("AltaWindow", u"Este texto puede cambiar a: Conectando, Sin conexi\u00f3n, Sincronizando o Conectado.", None))

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>RUMSA | Sustituir Tarjeta</string>
+   <string>Sustituir Tarjeta</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: #EAF4FF;</string>
@@ -304,7 +304,7 @@ color: #f0b51d;
 font-weight: bold;</string>
            </property>
            <property name="text">
-            <string>RUMSA</string>
+            <string>Trasporte</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -334,7 +334,7 @@ background-color: #D7ECFF;
 </string>
            </property>
            <property name="text">
-            <string>Rutas Urbanas de Matehuala, S.A. de C.V.</string>
+            <string></string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
