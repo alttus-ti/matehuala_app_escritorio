@@ -511,11 +511,11 @@ class AppController:
         if monto is not None:
             monto.setReadOnly(False)
             monto.clear()
-            validador_moto = QDoubleValidator(0.01, 99999.99, 2)
+            validador_moto = QDoubleValidator(-42949672.95, 400.00, 2)
             validador_moto.setNotation(QDoubleValidator.StandardNotation)
             monto.setValidator(validador_moto)
             monto.setPlaceholderText("0.00")
-            monto.setMaxLength(7)
+            monto.setMaxLength(14)
             
             monto.textChanged.connect(self._preview_saldo_nuevo)
             monto.editingFinished.connect(self._formatear_monto_recarga)
@@ -790,10 +790,16 @@ class AppController:
             ui.texto7.clear()
             ui.texto7.setMaximumHeight(80)
             
+            mensaje = (
+                "Descuento exitoso"
+                if self.monto_pendiente_centavos < 0
+                else "Recarga Exitosa"
+            )
+            
             if hasattr(ui.texto7, "setPlainText"):
-                ui.texto7.setPlainText("Recarga Exitosa")
+                ui.texto7.setPlainText(mensaje)
             else:
-                ui.texto7.setText("Recarga Exitosa")
+                                ui.texto7.setText(mensaje)
                 
             ui.texto7.setStyleSheet("""
                 color: #008000;
@@ -843,21 +849,73 @@ class AppController:
 
     def _preview_saldo_nuevo(self, *args) -> None:
         ui = self.current_ui
+
+        if not isinstance(ui, RecargaWindow):
+            return
+
+        ui.botonrecargar.setEnabled(False)
+
+        if not self.uid_actual:
+            return
+
+        if self.tarjeta_bloqueada or self.tarjeta_vencida:
+            return
+
         texto = self._texto_monto_recarga()
 
+        # Limpiar solamente los avisos de esta validación.
+        if ui.texto7.text().startswith(
+            ("No se puede exceder", "No puedes descontar")
+        ):
+            ui.texto7.clear()
+            ui.texto7.setStyleSheet("")
+
         if not texto:
-            ui.texto2.setText(f"{self.saldo_actual_centavos / 100:.2f}")
+            ui.texto2.setText(
+                f"{self.saldo_actual_centavos / 100:.2f}"
+            )
             return
 
         try:
             monto = float(texto)
+
+            if not (-42949672.95 <= monto <= 42949672.95):
+                raise ValueError
+
+            centavos = round(monto * 100)
         except ValueError:
-            ui.texto2.setText("Monto invalido")
+            ui.texto2.setText("Monto inválido")
             return
 
-        nuevo = (self.saldo_actual_centavos / 100) + monto
-        ui.texto2.setText(f"{nuevo:.2f}")
+        nuevo = self.saldo_actual_centavos + centavos
+        ui.texto2.setText(f"{nuevo / 100:.2f}")
 
+        mensaje = ""
+
+        if centavos > 0 and nuevo > 40000:
+            disponible = max(
+                0, 40000 - self.saldo_actual_centavos
+            )
+            mensaje = (
+                "No se puede exceder el saldo de $400.00. "
+                f"Puedes recargar hasta ${disponible / 100:.2f}."
+            )
+        elif nuevo < 0:
+            mensaje = (
+                "No puedes descontar más del saldo disponible."
+            )
+
+        if mensaje:
+            ui.texto7.setText(mensaje)
+            ui.texto7.setWordWrap(True)
+            ui.texto7.setMaximumHeight(80)
+            ui.texto7.setStyleSheet(
+                "color: red; font-weight: bold;"
+            )
+            return
+
+        ui.botonrecargar.setEnabled(centavos != 0)
+    
     def _ejecutar_recarga(self) -> None:
         ui = self.current_ui
 
@@ -910,14 +968,67 @@ class AppController:
             QMessageBox.warning(self.current_window, "Error", "Monto invalido.")
             return
 
-        if monto <= 0:
-            QMessageBox.warning(self.current_window, "Error", "El monto debe ser mayor a 0.")
+                # También rechaza valores no válidos como infinito o NaN.
+        if not (-42949672.95 <= monto <= 400.00):
+            QMessageBox.warning(
+                self.current_window,
+                "Monto inválido",
+                "Para recargar, captura hasta $400.\n"
+                "Para descontar, escribe una cantidad negativa."
+            )
             return
 
-        self.monto_pendiente_centavos = round(monto * 100)
+        centavos = round(monto * 100)
+
+        if centavos == 0:
+            QMessageBox.warning(
+                self.current_window, "Error",
+                "El monto debe ser diferente de cero."
+            )
+            return
+
+        nuevo_saldo = self.saldo_actual_centavos + centavos
+
+        if nuevo_saldo < 0:
+            QMessageBox.warning(
+                self.current_window,
+                "Saldo insuficiente",
+                "No puedes descontar más del saldo disponible."
+            )
+            return
+
+        # El máximo de $400 aplica solamente al agregar saldo.
+        if centavos > 0 and nuevo_saldo > 40000:
+            disponible = max(0, 40000 - self.saldo_actual_centavos)
+
+            QMessageBox.warning(
+                self.current_window,
+                "Saldo máximo permitido",
+                "No se puede exceder el saldo máximo de $400.00.\n\n"
+                f"Saldo actual: ${self.saldo_actual_centavos / 100:.2f}\n"
+                f"Intentas recargar: ${centavos / 100:.2f}\n"
+                f"Puedes recargar hasta: ${disponible / 100:.2f}"
+            )
+            return
+
+        if centavos < 0:
+            respuesta = QMessageBox.question(
+                self.current_window,
+                "Confirmar descuento",
+                f"¿Descontar ${abs(centavos) / 100:,.2f}?\n"
+                f"Tarjeta: {self.uid_actual}\n"
+                f"Saldo resultante: ${nuevo_saldo / 100:,.2f}",
+                QMessageBox.Yes | QMessageBox.No,
+                QMessageBox.No
+            )
+            if respuesta != QMessageBox.Yes:
+                return
+
+        self.monto_pendiente_centavos = centavos
 
         try:
-            comando = f"rc,{self.uid_actual},{self.monto_pendiente_centavos}"
+            accion = "di" if centavos < 0 else "rc"
+            comando = f"{accion},{self.uid_actual},{abs(centavos)}"
             self.arduino.enviar_linea(comando)
             ui.texto7.setText("Enviando recarga...")
             ui.texto7.setMaximumHeight(40)
