@@ -493,15 +493,15 @@ class SyncService:
 
                 existe_en_servidor = self._tarjeta_existe_en_servidor(uid)
 
-                if existe_en_servidor is True:
-                    print(f"[SYNC] UID encontrada en servidor, borrando local: {uid}")
-                    self._delete_local_card_data(connection, uid)
-                    eliminadas += 1
-                elif existe_en_servidor is False:
-                    print(f"[SYNC] UID no encontrada en servidor, se conserva local: {uid}")
-                else:
-                    hubo_error_verificacion = True
-                    print(f"[SYNC] No se pudo verificar UID, se conserva local: {uid}")
+                #if existe_en_servidor is True:
+                    #print(f"[SYNC] UID encontrada en servidor, borrando local: {uid}")
+                 #   self._delete_local_card_data(connection, uid)
+                 #   eliminadas += 1
+                #elif existe_en_servidor is False:
+                    #print(f"[SYNC] UID no encontrada en servidor, se conserva local: {uid}")
+                #else:
+                  #  hubo_error_verificacion = True
+                    #print(f"[SYNC] No se pudo verificar UID, se conserva local: {uid}")
 
             if not hubo_error_verificacion:
                 self._delete_all_orphan_passengers(connection)
